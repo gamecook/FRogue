@@ -46,12 +46,12 @@ package
 			configureStage();
 			trace("Hello World");
 			
-			var map : RandomMap = new RandomMap(10);
+			var map : RandomMap = new RandomMap(20);
 			trace(map);
 
             var renderer:MapRenderer = new MapRenderer(this.graphics);
 
-            renderer.renderMap(map.getSurroundingTiles(map.getRandomStartPosition(), map.mapWidth, map.mapHeight));
+            renderer.renderMap(map.getSurroundingTiles(new Point(8,8), map.mapWidth, map.mapHeight));
 		}
 
 		private function configureStage() : void 

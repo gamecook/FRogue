@@ -46,7 +46,6 @@ package com.flashartofwar.frogue.renderer
                     tileRect.y = i * tileRect.height;
                     target.beginFill(tileColorMap(currentTile));
                     target.drawRect(tileRect.x, tileRect.y, tileRect.width, tileRect.height);
-
                 }
             }
 

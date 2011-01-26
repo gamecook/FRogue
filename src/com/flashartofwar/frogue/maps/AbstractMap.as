@@ -31,7 +31,6 @@ package com.flashartofwar.frogue.maps
 	public class AbstractMap implements IMap
 	{
 		protected var _tiles : Array = [];
-		protected var autoAddTiles : Boolean = true;
 		protected var dirs : Array;
 		protected var height : Number;
 
@@ -84,16 +83,11 @@ package com.flashartofwar.frogue.maps
 			var range : Array = [];
 			var i : int;
 
-
             var hRangeObj:Object = calculateRange(center.x, horizontalRange, mapWidth);
-
-            //TODO not sure why  I need to add 1 to the verticalRange, look into this
             var vRangeObj:Object = calculateRange(center.y, verticalRange+1, mapHeight);
 
 			for (i = vRangeObj.start;i < vRangeObj.end;i ++)
 			{
-
-
                 range.push(getTilesInRow(i, hRangeObj.start, hRangeObj.end));
 			}
 
@@ -102,10 +96,6 @@ package com.flashartofwar.frogue.maps
 
         protected function calculateRange(center:int, range:int, length:int):Object
         {
-            //TODO this is a bug that needs to be looked into
-            if(range > length)
-                range = length;
-
             var obj:Object = {};
 
             range --;
@@ -151,6 +141,19 @@ package com.flashartofwar.frogue.maps
                 obj.start = center - paddingLeft;
                 obj.end = obj.start + paddingLeft + paddingRight;
             }
+
+            // Just in case, make sure set is always in range
+            if(obj.start < 0)
+            {
+                // If start is less then 0, shift selection back into range.
+                obj.start = 0;
+                obj.end ++;
+            }
+
+            // Make sure selection is never larger then the length.
+            if(obj.end > length)
+                obj.end = length;
+
             return obj;
         }
 

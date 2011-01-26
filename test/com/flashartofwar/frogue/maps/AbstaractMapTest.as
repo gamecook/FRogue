@@ -191,6 +191,20 @@ package com.flashartofwar.frogue.maps
 		}
 
         [Test]
+		public function testGetFullMapLargeSetA() : void
+		{
+			tiles = [["a","b","c","d"],
+					 ["e","f","g","h"],
+					 ["i","j","k","l"],
+					 ["m","n","o","p"],
+					 ["q","r","s","t"],
+					 ["u","v","w","x"]];
+			var surroundingTiles : Array = getSurroundingTiles(new Point(3, 2), mapWidth, mapHeight);
+
+			Assert.assertEquals(surroundingTiles.join(), "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x");
+		}
+
+        [Test]
         public function testCalculateRangeFarLeft() : void
 		{
 			tiles = [["a","b","c","d"]];
@@ -280,12 +294,31 @@ package com.flashartofwar.frogue.maps
             Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "c,d,e,f,g,h,i");
         }
 
+        [Test]
+        public function testCalculateFullRangeLargeSet()
+        {
+            tiles = [
+            ["01","02","03","04","05","06","07","08","09"],
+            ["10","11","12","13","14","15","16","17","18"],
+            ["19","20","21","22","23","24","25","26","27"],
+            ["28","29","30","31","32","33","34","35","36"],
+            ["37","38","39","40","42","42","43","44","45"],
+            ["46","47","48","49","50","51","52","53","54"],
+            ["55","56","57","58","59","60","61","62","63"],
+            ["64","65","66","67","68","69","70","71","72"],
+            ["73","74","75","76","77","78","79","80","91"]
+            ];
+
+            var obj : Object = calculateRange(8,9, 9);
+
+            Assert.assertEquals(getSurroundingTiles(new Point(8,8), 9, 9), tiles.toString());
+        }
 		[Test]
 		public function testGetTilesInRowInBounds() : void
 		{
 			tiles = [["a","b","c","d"]];
 			var selection : Array = getTilesInRow(0, 1, 3);
-			
+
 			Assert.assertEquals(selection.join(), "b,c,d");
 		}
 
