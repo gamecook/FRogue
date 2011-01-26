@@ -66,7 +66,6 @@ package com.flashartofwar.frogue.maps
 			genRooms();
 			genPaths();
 			clearJunk();
-			//makeDoors();
 		}
 
 		/**
@@ -279,47 +278,6 @@ package com.flashartofwar.frogue.maps
 
                     if(_tiles[x][y] == " ")
                         openTiles.push(new Point(x,y));
-				}
-			}
-		}
-
-		/**
-		 * 
-		 * @return 
-		 */
-		public function randomDoor() : String 
-		{
-			var d : Number = Math.random();
-			if (d < .3) return ' ';
-			if (d < .7) return '|';
-			if (d < .9) return '=';
-			return '+';
-		}
-
-		/**
-		 * 
-		 */
-		public function makeDoors() : void 
-		{
-			for (var i : int = 0;i < this.paths.length;i ++)
-			{
-				var path : Object = this.paths[i].path;
-				if (Math.random() < .05) 
-				{
-					_tiles[path[0].x][path[0].y] = 'S';
-					_tiles[path[path.length - 1].x][path[path.length - 1].y] = 'S';
-				} 
-				else 
-				{
-					_tiles[path[0].x][path[0].y] = this.randomDoor();
-					_tiles[path[path.length - 1].x][path[path.length - 1].y] = this.randomDoor();
-				}
-
-				while (Math.random() < .04) 
-				{ 
-					// collapse(s)
-					i = Math.floor(Math.random() * path.length);
-					_tiles[path[i].x][path[i].y] = '#';
 				}
 			}
 		}

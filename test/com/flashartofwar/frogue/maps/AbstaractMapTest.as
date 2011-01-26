@@ -2,7 +2,9 @@ package com.flashartofwar.frogue.maps
 {
 	import flash.geom.Point;
 
-	import org.flexunit.Assert;
+    import flash.geom.Rectangle;
+
+    import org.flexunit.Assert;
 
 	import com.flashartofwar.frogue.maps.AbstractMap;
 
@@ -77,67 +79,214 @@ package com.flashartofwar.frogue.maps
 
 		public function testZeroSurroundingTiles() : void
 		{
-			tiles = [["01","02","03","04"],
-					 ["05","06","07","08"],
-					 ["09","10","11","12"],
-					 ["13","14","15","16"],
-					 ["17","18","19","20"],
-					 ["21","22","23","24"]];
+			tiles = [["a","b","c","d"],
+					 ["e","f","g","h"],
+					 ["i","j","k","l"],
+					 ["m","n","o","p"],
+					 ["q","r","s","t"],
+					 ["u","v","w","x"]];
 			
 			var surroundingTiles : Array = getSurroundingTiles(new Point(2, 2), 1, 1);
 			
-			Assert.assertEquals(surroundingTiles.join(), "@");
+			Assert.assertEquals(surroundingTiles.join(), "k");
 		}
 
 		[Test]
-
 		public function testGetShallowSetOfSurroundingTiles() : void
 		{
-			tiles = [["01","02","03","04"],
-					 ["05","06","07","08"],
-					 ["09","10","11","12"],
-					 ["13","14","15","16"],
-					 ["17","18","19","20"],
-					 ["21","22","23","24"]];
+			tiles = [["a","b","c","d"],
+					 ["e","f","g","h"],
+					 ["i","j","k","l"],
+					 ["m","n","o","p"],
+					 ["q","r","s","t"],
+					 ["u","v","w","x"]];
 			
 			var surroundingTiles : Array = getSurroundingTiles(new Point(0, 0), 3, 3);
 			
-			Assert.assertEquals(surroundingTiles.join(), "@,02,03,05,06,07,09,10,11");
+			Assert.assertEquals(surroundingTiles.join(), "a,b,c,e,f,g,i,j,k");
 		}
 
 		[Test]
-
 		public function testGetLargerSetOfSurroundingTiles() : void
 		{
-			tiles = [["01","02","03","04"],
-					 ["05","06","07","08"],
-					 ["09","10","11","12"],
-					 ["13","14","15","16"],
-					 ["17","18","19","20"],
-					 ["21","22","23","24"]];
-			var surroundingTiles : Array = getSurroundingTiles(new Point(1, 2), 3, 4);
+			tiles = [["a","b","c","d"],
+					 ["e","f","g","h"],
+					 ["i","j","k","l"],
+					 ["m","n","o","p"],
+					 ["q","r","s","t"],
+					 ["u","v","w","x"]];
+			var surroundingTiles : Array = getSurroundingTiles(new Point(1, 2), 3, 5);
 			
-			Assert.assertEquals(surroundingTiles.join(), "10,11,12,14,15,@,18,19,20,22,23,24");
+			Assert.assertEquals(surroundingTiles.join(), "a,b,c,e,f,g,i,j,k,m,n,o,q,r,s");
 		}
 
-		[Test]
+        [Test]
+		public function testGetUpperLeftSurroundingTiles() : void
+		{
+			tiles = [["a","b","c","d"],
+					 ["e","f","g","h"],
+					 ["i","j","k","l"],
+					 ["m","n","o","p"],
+					 ["q","r","s","t"],
+					 ["u","v","w","x"]];
+			var surroundingTiles : Array = getSurroundingTiles(new Point(0, 0), 3, 5);
 
+			Assert.assertEquals(surroundingTiles.join(), "a,b,c,e,f,g,i,j,k,m,n,o,q,r,s");
+		}
+
+        [Test]
+		public function testGetUpperRightSurroundingTiles() : void
+		{
+			tiles = [["a","b","c","d"],
+					 ["e","f","g","h"],
+					 ["i","j","k","l"],
+					 ["m","n","o","p"],
+					 ["q","r","s","t"],
+					 ["u","v","w","x"]];
+			var surroundingTiles : Array = getSurroundingTiles(new Point(3, 0), 3, 5);
+
+			Assert.assertEquals(surroundingTiles.join(), "b,c,d,f,g,h,j,k,l,n,o,p,r,s,t");
+		}
+
+        [Test]
+		public function testGetCenterSurroundingTiles() : void
+		{
+			tiles = [["a","b","c","d"],
+					 ["e","f","g","h"],
+					 ["i","j","k","l"],
+					 ["m","n","o","p"],
+					 ["q","r","s","t"],
+					 ["u","v","w","x"]];
+			var surroundingTiles : Array = getSurroundingTiles(new Point(1, 2), 3, 5);
+
+			Assert.assertEquals(surroundingTiles.join(), "a,b,c,e,f,g,i,j,k,m,n,o,q,r,s");
+		}
+
+        [Test]
+		public function testGetCenterRightSurroundingTiles() : void
+		{
+			tiles = [["a","b","c","d"],
+					 ["e","f","g","h"],
+					 ["i","j","k","l"],
+					 ["m","n","o","p"],
+					 ["q","r","s","t"],
+					 ["u","v","w","x"]];
+			var surroundingTiles : Array = getSurroundingTiles(new Point(2, 3), 3, 5);
+
+			Assert.assertEquals(surroundingTiles.join(), "f,g,h,j,k,l,n,o,p,r,s,t,v,w,x");
+		}
+
+        [Test]
+		public function testGetCenterSurroundingTilesLargeSet() : void
+		{
+			tiles = [["a","b","c","d"],
+					 ["e","f","g","h"],
+					 ["i","j","k","l"],
+					 ["m","n","o","p"],
+					 ["q","r","s","t"],
+					 ["u","v","w","x"]];
+			var surroundingTiles : Array = getSurroundingTiles(new Point(3, 2), 4, 5);
+
+			Assert.assertEquals(surroundingTiles.join(), "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t");
+		}
+
+        [Test]
+        public function testCalculateRangeFarLeft() : void
+		{
+			tiles = [["a","b","c","d"]];
+			var obj : Object = calculateRange(0,3, mapWidth);
+
+            Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "a,b,c");
+		}
+
+        [Test]
+        public function testCalculateRangeFarRight() : void
+		{
+			tiles = [["a","b","c","d"]];
+			var obj : Object = calculateRange(3,3, mapWidth);
+
+            Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "b,c,d");
+		}
+
+        [Test]
+        public function testCalculateFullRangeFarRight() : void
+		{
+			tiles = [["a","b","c","d"]];
+			var obj : Object = calculateRange(3,4, mapWidth);
+
+            Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "a,b,c,d");
+		}
+
+        [Test]
+        public function testCalculateRangeFarRightLargerSet() : void
+		{
+			tiles = [["a","b","c","d","e","f","g","h"]];
+			var obj : Object = calculateRange(7,4, mapWidth);
+
+            Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "e,f,g,h");
+		}
+
+        [Test]
+        public function testCalculateRangeCenter()
+        {
+            tiles = [["a","b","c","d"]];
+			var obj : Object = calculateRange(1,3, mapWidth);
+
+            Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "a,b,c");
+        }
+
+        [Test]
+        public function testCalculateRangeCenterLargeSet()
+        {
+            tiles = [["a","b","c","d","e","f","g","h","i"]];
+            var obj : Object = calculateRange(4,5, mapWidth);
+
+            Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "c,d,e,f,g");
+        }
+
+        [Test]
+        public function testCalculateRangeCenterLeft()
+        {
+            tiles = [["a","b","c","d","e","f","g","h","i"]];
+            var obj : Object = calculateRange(1,5, mapWidth);
+
+            Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "a,b,c,d,e");
+        }
+
+        [Test]
+        public function testCalculateRangeCenterLeftLargeSet()
+        {
+            tiles = [["a","b","c","d","e","f","g","h","i"]];
+            var obj : Object = calculateRange(1,7, mapWidth);
+
+            Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "a,b,c,d,e,f,g");
+        }
+
+        [Test]
+        public function testCalculateRangeCenterRight()
+        {
+            tiles = [["a","b","c","d","e","f","g","h","i"]];
+            var obj : Object = calculateRange(7,5, mapWidth);
+
+            Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "e,f,g,h,i");
+        }
+
+        [Test]
+        public function testCalculateRangeCenterRightLargeSet()
+        {
+            tiles = [["a","b","c","d","e","f","g","h","i"]];
+            var obj : Object = calculateRange(7,7, mapWidth);
+
+            Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "c,d,e,f,g,h,i");
+        }
+
+		[Test]
 		public function testGetTilesInRowInBounds() : void
 		{
-			tiles = [["01","02","03","04"]];
+			tiles = [["a","b","c","d"]];
 			var selection : Array = getTilesInRow(0, 1, 3);
 			
-			Assert.assertEquals(selection.join(), "02,03,04");
-		}
-
-		[Test]
-
-		public function testGetTilesInRowOutOfBounds() : void
-		{
-			tiles = [["01","02","03","04"]];
-			var selection : Array = getTilesInRow(0, - 3, 7);
-			
-			Assert.assertEquals(selection.join(), "01,02,03,04,X,X,X,X,X,X");
+			Assert.assertEquals(selection.join(), "b,c,d");
 		}
 
 		[Test]
@@ -160,12 +309,12 @@ package com.flashartofwar.frogue.maps
         [Test]
         public function testMapWidth() : void
 		{
-			tiles = [["01","02","03","04"],
-					 ["05","06","07","08"],
-					 ["09","10","11","12"],
-					 ["13","14","15","16"],
-					 ["17","18","19","20"],
-					 ["21","22","23","24"]];
+			tiles = [["a","b","c","d"],
+					 ["e","f","g","h"],
+					 ["i","j","k","l"],
+					 ["m","n","o","p"],
+					 ["q","r","s","t"],
+					 ["u","v","w","x"]];
 
 			Assert.assertEquals(mapWidth, 4);
 		}
@@ -173,12 +322,12 @@ package com.flashartofwar.frogue.maps
         [Test]
         public function testMapHeight() : void
 		{
-			tiles = [["01","02","03","04"],
-					 ["05","06","07","08"],
-					 ["09","10","11","12"],
-					 ["13","14","15","16"],
-					 ["17","18","19","20"],
-					 ["21","22","23","24"]];
+			tiles = [["a","b","c","d"],
+					 ["e","f","g","h"],
+					 ["i","j","k","l"],
+					 ["m","n","o","p"],
+					 ["q","r","s","t"],
+					 ["u","v","w","x"]];
 
 			Assert.assertEquals(mapHeight, 6);
 		}

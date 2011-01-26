@@ -2,8 +2,9 @@ package com.flashartofwar.frogue.maps
 {
 	import com.flashartofwar.frogue.enum.TilesEnum;
 	import flash.geom.Point;
+    import flash.geom.Rectangle;
 
-	/**
+    /**
 	 * The MIT License
 	 * 
 	 * Copyright (c) 2009 @author jessefreeman
@@ -83,23 +84,75 @@ package com.flashartofwar.frogue.maps
 			var range : Array = [];
 			var i : int;
 
-			for (i = 0;i < verticalRange;i ++)
-			{
-				range.push(getTilesInRow(center.y + i, center.x, horizontalRange));
-			}
 
-            if(verticalRange == 1)
-            {
-                if(horizontalRange == 1)
-                    range[0] = "@";
-                else
-                    range[center.x] = "@";
-            }
-            else
-                range[center.x][center.y] = "@";
+            var hRangeObj:Object = calculateRange(center.x, horizontalRange, mapWidth);
+
+            //TODO not sure why  I need to add 1 to the verticalRange, look into this
+            var vRangeObj:Object = calculateRange(center.y, verticalRange+1, mapHeight);
+
+			for (i = vRangeObj.start;i < vRangeObj.end;i ++)
+			{
+
+
+                range.push(getTilesInRow(i, hRangeObj.start, hRangeObj.end));
+			}
 
 			return range;
 		}
+
+        protected function calculateRange(center:int, range:int, length:int):Object
+        {
+            //TODO this is a bug that needs to be looked into
+            if(range > length)
+                range = length;
+
+            var obj:Object = {};
+
+            range --;
+
+            if(center == 0)
+            {
+                // At far right
+                obj.start = center;
+                obj.end = range;
+            }
+            else if(center == length-1)
+            {
+                // At far right
+                obj.start = center - range;
+                obj.end = center;
+            }
+            else
+            {
+                // Center
+                var split:int = Math.floor(range * .5);
+                var paddingLeft:int = split;
+                var paddingRight:int = range - split;
+                var mapCenter:int = Math.floor(length * .5);
+
+                if(center < mapCenter)
+                {
+                    var leftOutOfBounds:int = center - paddingLeft;
+                    if(leftOutOfBounds < 0)
+                    {
+                        paddingRight -= leftOutOfBounds;
+                        paddingLeft += leftOutOfBounds;
+                    }
+                }
+                else if(center > mapCenter)
+                {
+                    var rightOutOfBounds:int = (length-1) - (center + paddingRight);
+                    if(rightOutOfBounds < 0)
+                    {
+                        paddingRight += rightOutOfBounds;
+                        paddingLeft -= rightOutOfBounds;
+                    }
+                }
+                obj.start = center - paddingLeft;
+                obj.end = obj.start + paddingLeft + paddingRight;
+            }
+            return obj;
+        }
 
 		/**
 		 * 
@@ -166,30 +219,10 @@ package com.flashartofwar.frogue.maps
 		protected function getTilesInRow(i : int, start : Number, end : Number) : Array
 		{
 
-			var offset : Number = 0;
-			if (start < 0)
-			{
-				offset = start * - 1;
-				start = 0;
-			}
-
 			var row : Array = _tiles[i] as Array;
 
-			var total : int = row.length;
+			var tiles : Array = row.slice(start, end+1);
 
-			var length : Number = end + start + offset;
-
-			var tiles : Array = row.slice(start, end + start + offset);
-
-			var leftOver : Number = length > total ? length - tiles.length : 0;
-
-			if (autoAddTiles && (leftOver > 0))
-			{
-				for (i = 0;i < leftOver;i ++)
-				{
-					tiles.push("X");
-				}
-			}
 			return tiles;
 		}
 
