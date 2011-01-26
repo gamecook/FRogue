@@ -30,16 +30,14 @@ package com.flashartofwar.frogue.renderer
             var i:int;
             var j:int;
             var total:int = tiles.length;
-            var rowWidth:int;
+            var rowWidth:int = tiles[0].length;
             var currentTile:String;
 
             target.lineStyle(1,0x000000);
 
             for(i = 0; i < total; i++)
             {
-                rowWidth = tiles[i].length;
-
-                for(j = 0; j < total; j ++)
+                for(j = 0; j < rowWidth; j ++)
                 {
                     currentTile = tiles[i][j];
                     tileRect.x = j * tileRect.width;

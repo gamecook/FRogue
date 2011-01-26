@@ -51,7 +51,7 @@ package
 
             var renderer:MapRenderer = new MapRenderer(this.graphics);
 
-            renderer.renderMap(map.getSurroundingTiles(new Point(8,8), map.mapWidth, map.mapHeight));
+            renderer.renderMap(map.getSurroundingTiles(map.getRandomStartPosition(), 20, 5));
 		}
 
 		private function configureStage() : void 

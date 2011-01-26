@@ -205,6 +205,34 @@ package com.flashartofwar.frogue.maps
 		}
 
         [Test]
+		public function testGetMapWithUniqueSize() : void
+		{
+			tiles = [["a","b","c","d"],
+					 ["e","f","g","h"],
+					 ["i","j","k","l"],
+					 ["m","n","o","p"],
+					 ["q","r","s","t"],
+					 ["u","v","w","x"]];
+			var surroundingTiles : Array = getSurroundingTiles(new Point(3, 2), 4, 3);
+
+			Assert.assertEquals(surroundingTiles.join(), "e,f,g,h,i,j,k,l,m,n,o,p");
+		}
+
+        [Test]
+		public function testGetMapWithUniqueSize2() : void
+		{
+			tiles = [["a","b","c","d"],
+					 ["e","f","g","h"],
+					 ["i","j","k","l"],
+					 ["m","n","o","p"],
+					 ["q","r","s","t"],
+					 ["u","v","w","x"]];
+			var surroundingTiles : Array = getSurroundingTiles(new Point(3, 2), 4, 2);
+
+			Assert.assertEquals(surroundingTiles.join(), "e,f,g,h,i,j,k,l");
+		}
+
+        [Test]
         public function testCalculateRangeFarLeft() : void
 		{
 			tiles = [["a","b","c","d"]];
