@@ -279,9 +279,9 @@ package com.flashartofwar.frogue.maps
                     if(_tiles[x][y] == " ")
                         openTiles.push(new Point(x,y));
 				}
-			}
 		}
 
+			}
         public function getRandomStartPosition():Point
         {
             var point:Point = openTiles[Math.floor(Math.random() * openTiles.length)];
