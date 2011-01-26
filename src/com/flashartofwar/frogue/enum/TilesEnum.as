@@ -9,7 +9,7 @@ package com.flashartofwar.frogue.enum
 
 		private static const TYPES : Object = new Object();
 		{
-		TYPES['_'] = { name: 'floor', _img: 'img/dg_dungeon32-0-8.gif', impassable:false },
+		TYPES[' '] = { name: 'floor', _img: 'img/dg_dungeon32-0-8.gif', impassable:false },
 		TYPES['#'] = { name: 'wall', impassable: true, opaque: true, _img: 'img/dg_dungeon32-0-4.gif' },
 		TYPES['|'] = {name: 'closed_door', impassable: true, opaque: true, _img: 'img/dg_dungeon32-6-1.gif'}, 
 		TYPES['='] = { name: 'open_door', _img: 'img/dg_dungeon32-7-1.gif', impassable:false}, 
@@ -26,7 +26,8 @@ package com.flashartofwar.frogue.enum
 		 */ 
 		public static function isSupported(tileType : String) : Boolean 
 		{
-			return (TYPES.hasOwnProperty(tileType));
+			trace("Test Tile", tileType);
+            return (TYPES.hasOwnProperty(tileType));
 		}
 
 		/**
@@ -34,17 +35,18 @@ package com.flashartofwar.frogue.enum
 		 */
 		public static function isImpassable(tileType : String) : Boolean
 		{
-			return TYPES[tileType].impassable;
+			return tileType == null ? false : TYPES[tileType].impassable;
 		}
 
-		public static function registerTileType(name : String, description : String, impassable : Boolean) : void
+        public static function registerTileType(name : String, description : String, impassable : Boolean) : void
 		{
 			TYPES[name] = {name:description, impassable: impassable};
 		}
 
-		public static function removeColor(name : String) : void
+		public static function removeTileType(name : String) : void
 		{
 			delete TYPES[name];
 		}
+
 	}
 }

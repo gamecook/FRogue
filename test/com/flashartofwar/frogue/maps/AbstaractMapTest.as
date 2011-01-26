@@ -199,7 +199,7 @@ package com.flashartofwar.frogue.maps
 					 ["m","n","o","p"],
 					 ["q","r","s","t"],
 					 ["u","v","w","x"]];
-			var surroundingTiles : Array = getSurroundingTiles(new Point(3, 2), mapWidth, mapHeight);
+			var surroundingTiles : Array = getSurroundingTiles(new Point(3, 2), width, height);
 
 			Assert.assertEquals(surroundingTiles.join(), "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x");
 		}
@@ -236,7 +236,7 @@ package com.flashartofwar.frogue.maps
         public function testCalculateRangeFarLeft() : void
 		{
 			tiles = [["a","b","c","d"]];
-			var obj : Object = calculateRange(0,3, mapWidth);
+			var obj : Object = calculateRange(0,3, width);
 
             Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "a,b,c");
 		}
@@ -245,7 +245,7 @@ package com.flashartofwar.frogue.maps
         public function testCalculateRangeFarRight() : void
 		{
 			tiles = [["a","b","c","d"]];
-			var obj : Object = calculateRange(3,3, mapWidth);
+			var obj : Object = calculateRange(3,3, width);
 
             Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "b,c,d");
 		}
@@ -254,7 +254,7 @@ package com.flashartofwar.frogue.maps
         public function testCalculateFullRangeFarRight() : void
 		{
 			tiles = [["a","b","c","d"]];
-			var obj : Object = calculateRange(3,4, mapWidth);
+			var obj : Object = calculateRange(3,4, width);
 
             Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "a,b,c,d");
 		}
@@ -263,7 +263,7 @@ package com.flashartofwar.frogue.maps
         public function testCalculateRangeFarRightLargerSet() : void
 		{
 			tiles = [["a","b","c","d","e","f","g","h"]];
-			var obj : Object = calculateRange(7,4, mapWidth);
+			var obj : Object = calculateRange(7,4, width);
 
             Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "e,f,g,h");
 		}
@@ -272,7 +272,7 @@ package com.flashartofwar.frogue.maps
         public function testCalculateRangeCenter()
         {
             tiles = [["a","b","c","d"]];
-			var obj : Object = calculateRange(1,3, mapWidth);
+			var obj : Object = calculateRange(1,3, width);
 
             Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "a,b,c");
         }
@@ -281,7 +281,7 @@ package com.flashartofwar.frogue.maps
         public function testCalculateRangeCenterLargeSet()
         {
             tiles = [["a","b","c","d","e","f","g","h","i"]];
-            var obj : Object = calculateRange(4,5, mapWidth);
+            var obj : Object = calculateRange(4,5, width);
 
             Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "c,d,e,f,g");
         }
@@ -290,7 +290,7 @@ package com.flashartofwar.frogue.maps
         public function testCalculateRangeCenterLeft()
         {
             tiles = [["a","b","c","d","e","f","g","h","i"]];
-            var obj : Object = calculateRange(1,5, mapWidth);
+            var obj : Object = calculateRange(1,5, width);
 
             Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "a,b,c,d,e");
         }
@@ -299,7 +299,7 @@ package com.flashartofwar.frogue.maps
         public function testCalculateRangeCenterLeftLargeSet()
         {
             tiles = [["a","b","c","d","e","f","g","h","i"]];
-            var obj : Object = calculateRange(1,7, mapWidth);
+            var obj : Object = calculateRange(1,7, width);
 
             Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "a,b,c,d,e,f,g");
         }
@@ -308,7 +308,7 @@ package com.flashartofwar.frogue.maps
         public function testCalculateRangeCenterRight()
         {
             tiles = [["a","b","c","d","e","f","g","h","i"]];
-            var obj : Object = calculateRange(7,5, mapWidth);
+            var obj : Object = calculateRange(7,5, width);
 
             Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "e,f,g,h,i");
         }
@@ -317,7 +317,7 @@ package com.flashartofwar.frogue.maps
         public function testCalculateRangeCenterRightLargeSet()
         {
             tiles = [["a","b","c","d","e","f","g","h","i"]];
-            var obj : Object = calculateRange(7,7, mapWidth);
+            var obj : Object = calculateRange(7,7, width);
 
             Assert.assertEquals(getTilesInRow(0, obj.start, obj.end), "c,d,e,f,g,h,i");
         }
@@ -377,7 +377,7 @@ package com.flashartofwar.frogue.maps
 					 ["q","r","s","t"],
 					 ["u","v","w","x"]];
 
-			Assert.assertEquals(mapWidth, 4);
+			Assert.assertEquals(width, 4, _width);
 		}
 
         [Test]
@@ -390,7 +390,8 @@ package com.flashartofwar.frogue.maps
 					 ["q","r","s","t"],
 					 ["u","v","w","x"]];
 
-			Assert.assertEquals(mapHeight, 6);
+			Assert.assertEquals(height, 6);
 		}
+
 	}
 }

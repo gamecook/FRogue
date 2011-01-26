@@ -1,6 +1,8 @@
 package com.flashartofwar.frogue 
 {
-	import flash.display.Sprite;
+    import com.flashartofwar.frogue.io.IControl;
+
+    import flash.display.Sprite;
 
 	/**
 	 * The MIT License
@@ -26,7 +28,7 @@ package com.flashartofwar.frogue
 	 * THE SOFTWARE.
 	 * 
 	 */
-	public class FRogueCore extends Sprite 
+	public class FRogueCore implements IControl
 	{
 
 		/**
@@ -35,5 +37,21 @@ package com.flashartofwar.frogue
 		public function FRogueCore() 
 		{
 		}
-	}
+
+        public function up():void
+        {
+        }
+
+        public function down():void
+        {
+        }
+
+        public function right():void
+        {
+        }
+
+        public function left():void
+        {
+        }
+    }
 }

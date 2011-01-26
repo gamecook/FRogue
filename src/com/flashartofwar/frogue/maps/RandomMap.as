@@ -1,6 +1,7 @@
 package com.flashartofwar.frogue.maps 
 {
     import flash.geom.Point;
+    import flash.utils.getTimer;
 
     /**
 	 * The MIT License
@@ -32,30 +33,31 @@ package com.flashartofwar.frogue.maps
 
 		/**
 		 * 
-		 * @param mapsize
+		 * @param size
 		 */
-		public function RandomMap(mapsize : Number)
+		public function RandomMap(size : Number)
 		{
 			super(this);
-			generateMap(mapsize);
+			generateMap(size);
 		}
 
 		/**
 		 * 
-		 * @param mapsize
+		 * @param size
 		 */
-		protected function generateMap(mapsize : Number) : void
+		protected function generateMap(size : Number) : void
 		{
-			this.mapsize = mapsize;
+			this.mapsize = Math.ceil((size - 3) * .5);
 			this.dirs = [{x:- 1, y:0},{x:0, y:1},{x:1, y:0},{x:0, y:- 1}];
-			this.width = this.height = mapsize * 2 + 3;
+			this._width = this._height = mapsize * 2 + 3;
+
 			_tiles = []; 
 			this.paths = []; 
 			_rooms = [];
-			for (var i : int = 0;i < this.height;i ++) 
+			for (var i : int = 0;i < this._height;i ++)
 			{
 				var a : Array = [];
-				for (var j : int = 0;j < this.width;j ++) 
+				for (var j : int = 0;j < this._width;j ++)
 				{
 					a.push('#');
 				}
@@ -66,6 +68,7 @@ package com.flashartofwar.frogue.maps
 			genRooms();
 			genPaths();
 			clearJunk();
+
 		}
 
 		/**
@@ -83,7 +86,7 @@ package com.flashartofwar.frogue.maps
 					var testdir : Number = (dir + i) % 4;
 					var newx : Number = x + this.dirs[testdir].x * 2;
 					var newy : Number = y + this.dirs[testdir].y * 2;
-					if (newx > 0 && newx < this.width && newy > 0 && newy < this.height && _tiles[newx][newy] == '#')
+					if (newx > 0 && newx < this._width && newy > 0 && newy < this._height && _tiles[newx][newy] == '#')
                 break;
 				}
 				if (i < 4) 
@@ -269,9 +272,9 @@ package com.flashartofwar.frogue.maps
 		 */
 		public function clearJunk() : void 
 		{
-            for(var x : int = 0;x < this.width;x ++)
+            for(var x : int = 0;x < this._width;x ++)
 			{
-				for (var y : int = 0;y < this.height;y ++) 
+				for (var y : int = 0;y < this._height;y ++)
 				{
 					if (_tiles[x][y] == ' ') _tiles[x][y] = '#';
 					if (_tiles[x][y] != '#') _tiles[x][y] = ' ';
@@ -287,5 +290,12 @@ package com.flashartofwar.frogue.maps
             var point:Point = openTiles[Math.floor(Math.random() * openTiles.length)];
             return point;
         }
-	}
+
+        public function swapTile(point:Point, value:String):String
+        {
+            var oldValue:String = tiles[point.y][point.x];
+            tiles[point.y][point.x] = value;
+            return oldValue;
+        }
+    }
 }

@@ -32,12 +32,13 @@ package com.flashartofwar.frogue.maps
 	{
 		protected var _tiles : Array = [];
 		protected var dirs : Array;
-		protected var height : Number;
+
 
 		protected var mapsize : Number;
 		protected var paths : Array;
 		protected var _rooms : Array;
-		protected var width : Number;
+		protected var _width : Number;
+        protected var _height : Number;
 
 		/**
 		 * 
@@ -83,8 +84,8 @@ package com.flashartofwar.frogue.maps
 			var range : Array = [];
 			var i : int;
 
-            var hRangeObj:Object = calculateRange(center.x, horizontalRange, mapWidth);
-            var vRangeObj:Object = calculateRange(center.y, verticalRange+1, mapHeight);
+            var hRangeObj:Object = calculateRange(center.x, horizontalRange, width);
+            var vRangeObj:Object = calculateRange(center.y, verticalRange+1, height);
 
 			for (i = vRangeObj.start;i < vRangeObj.end;i ++)
 			{
@@ -192,6 +193,8 @@ package com.flashartofwar.frogue.maps
 		public function set tiles(value : Array) : void
 		{
 			_tiles = value.slice();
+            _width = tiles[0].length;
+            _height = tiles.length;
 		}
 
 		/**
@@ -234,14 +237,15 @@ package com.flashartofwar.frogue.maps
             return _rooms;
         }
 
-        public function get mapWidth():Number
+        public function get width():Number
         {
-            return tiles[0].length;
+            return _width;
         }
 
-        public function get mapHeight():Number
+        public function get height():Number
         {
-            return tiles.length;
+            return _height;
         }
+
     }
 }
