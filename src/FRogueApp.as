@@ -1,10 +1,13 @@
 package  
 {
-    import com.flashartofwar.frogue.io.Controls;
-    import com.flashartofwar.frogue.io.IControl;
-    import com.flashartofwar.frogue.maps.RandomMap;
+    import com.gamecook.frogue.helpers.PopulateMapHelper;
+    import com.gamecook.frogue.io.Controls;
+    import com.gamecook.frogue.io.IControl;
+    import com.gamecook.frogue.maps.RandomMap;
 
-    import com.flashartofwar.frogue.renderer.MapRenderer;
+    import com.gamecook.frogue.renderer.MapRenderer;
+
+    import com.gamecook.util.TimeMethodExecutionUtil;
 
     import flash.display.StageScaleMode;
 	import flash.display.StageAlign;
@@ -43,11 +46,13 @@ package
         public var playerPosition:Point;
 		public var map:RandomMap;
         private var renderer:MapRenderer;
-        private var renderWidth:int = 20;
-        private var renderHeight:int = 20;
+        private var renderWidth:int = 800/20;
+        private var renderHeight:int = 480/20;
         private var controls:Controls;
         private var invalidate:Boolean = true;
         private var oldTileValue:String;
+        private var populateMapHelper:PopulateMapHelper;
+
         /**
 		 * 
 		 */
@@ -60,23 +65,25 @@ package
             var tmpSize:int = 40;
 
             var t:Number = getTimer();
-            map = new RandomMap(tmpSize);
-            trace("New Map ",map.width,"x",map.height);
-            t = (getTimer()-t);
-            var strDebug:String;
-            strDebug = "Generation time: " + t + " ms\n";
-            strDebug += "tiles: " + map.width * map.height + " (" + Math.round((map.width * map.height) / t) + " tiles/ms)\n--\n";
-            trace(strDebug);
-            trace(map);
+            map = new RandomMap();
+            TimeMethodExecutionUtil.execute("generateMap",map.generateMap, tmpSize);
 
-            playerPosition = new Point();
+            populateMapHelper = new PopulateMapHelper(map);
+            populateMapHelper.populateMap("x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x");
+
+            //Setup player position
+            playerPosition = populateMapHelper.getRandomEmptyPoint();
+            oldTileValue = " ";
+            map.swapTile(playerPosition, "@");
 
             renderer = new MapRenderer(this.graphics);
 
             controls = new Controls(this);
 
             addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            move(0,0);
+            move(playerPosition.x,playerPosition.y);
+
+            //TODO there is a bug in renderer that doesn't let you see the last row
 		}
 
         private function onEnterFrame(event:Event):void
@@ -122,9 +129,8 @@ package
             if(tmpPosition.y < 0 || tmpPosition.y+1 > map.height)
                 return;
 
-            /*if(map.canEnter(tmpPosition))
-            {*/
-                trace("Move");
+            if(!map.canEnter(tmpPosition))
+            {;
                 map.swapTile(playerPosition, oldTileValue);
                 playerPosition.x = tmpPosition.x;
                 playerPosition.y = tmpPosition.y;
@@ -132,7 +138,7 @@ package
 
                 render(playerPosition);
                 invalidate = true;
-            //}
+            }
         }
 
         public function render(position:Point):void
@@ -140,17 +146,13 @@ package
             if(!invalidate)
                 return;
 
-            var t:Number = getTimer();
-            var tiles = map.getSurroundingTiles(position, renderWidth, renderHeight);
-            renderer.renderMap(tiles);
-            t = (getTimer()-t);
-            var strDebug:String;
-            strDebug = "Render time: " + t + " ms\n";
-            strDebug += "tiles: " + tiles.length * tiles[0].length + " (" + Math.round((tiles.length * tiles[0].length) / t) + " tiles/ms)\n--\n";
-            trace(strDebug);
+            var tiles =TimeMethodExecutionUtil.execute("getSurroundingTiles", map.getSurroundingTiles,position, renderWidth, renderHeight);
+
+            TimeMethodExecutionUtil.execute("renderMap", renderer.renderMap,tiles);
 
             invalidate = false;
             tiles.length = 0;
         }
+
     }
 }

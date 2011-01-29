@@ -1,4 +1,4 @@
-package com.flashartofwar.frogue.enum 
+package com.gamecook.frogue.enum
 {
 
 	/**
@@ -9,14 +9,15 @@ package com.flashartofwar.frogue.enum
 
 		private static const TYPES : Object = new Object();
 		{
-		TYPES[' '] = { name: 'floor', _img: 'img/dg_dungeon32-0-8.gif', impassable:false },
-		TYPES['#'] = { name: 'wall', impassable: true, opaque: true, _img: 'img/dg_dungeon32-0-4.gif' },
-		TYPES['|'] = {name: 'closed_door', impassable: true, opaque: true, _img: 'img/dg_dungeon32-6-1.gif'}, 
-		TYPES['='] = { name: 'open_door', _img: 'img/dg_dungeon32-7-1.gif', impassable:false}, 
-		TYPES['+'] = { name: 'destroyed-door', _img: 'img/dg_dungeon32-8-1.gif', impassable:false}, 
-		TYPES['\\'] = {name: 'stairs_down', opaque: true, _img: 'img/dg_dungeon32-1-7.gif', impassable:false},
-		TYPES['/'] = { name: 'stairs_up', opaque: true, _img: 'img/dg_dungeon32-0-7.gif', impassable:false},
-		TYPES['S'] = { name: 'secret_door', impassable: true, opaque: true, _img: 'img/dg_dungeon32-0-4.gif'};
+		TYPES[' '] = { name: 'floor', _img: '', impassable:false },
+		TYPES['#'] = { name: 'wall', impassable: true, _img: '' },
+		TYPES['|'] = {name: 'closed_door', impassable: true, _img: ''},
+		TYPES['='] = { name: 'open_door', _img: '', impassable:false},
+		TYPES['+'] = { name: 'destroyed-door', _img: '', impassable:false},
+		TYPES['\\'] = {name: 'stairs_down', _img: '', impassable:false},
+		TYPES['/'] = { name: 'stairs_up', _img: '', impassable:false},
+		TYPES['S'] = { name: 'secret_door', impassable: true, _img: ''};
+		TYPES['x'] = { name: 'item_placeholder', impassable: false, _img: ''};
 		}
 
 		/**

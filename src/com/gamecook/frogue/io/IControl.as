@@ -5,7 +5,7 @@
  * Time: 4:30 PM
  * To change this template use File | Settings | File Templates.
  */
-package com.flashartofwar.frogue.io
+package com.gamecook.frogue.io
 {
     public interface IControl
     {

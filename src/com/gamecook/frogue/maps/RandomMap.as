@@ -1,7 +1,6 @@
-package com.flashartofwar.frogue.maps 
+package com.gamecook.frogue.maps
 {
     import flash.geom.Point;
-    import flash.utils.getTimer;
 
     /**
 	 * The MIT License
@@ -35,19 +34,20 @@ package com.flashartofwar.frogue.maps
 		 * 
 		 * @param size
 		 */
-		public function RandomMap(size : Number)
+		public function RandomMap()
 		{
 			super(this);
-			generateMap(size);
 		}
 
 		/**
 		 * 
 		 * @param size
 		 */
-		protected function generateMap(size : Number) : void
+		public function generateMap(size : Number) : void
 		{
-			this.mapsize = Math.ceil((size - 3) * .5);
+			tiles.length = 0;
+
+            this.mapsize = Math.ceil((size - 3) * .5);
 			this.dirs = [{x:- 1, y:0},{x:0, y:1},{x:1, y:0},{x:0, y:- 1}];
 			this._width = this._height = mapsize * 2 + 3;
 
@@ -285,17 +285,13 @@ package com.flashartofwar.frogue.maps
 		}
 
 			}
-        public function getRandomStartPosition():Point
+        public function getRandomStartPosition(remove:Boolean = false):Point
         {
-            var point:Point = openTiles[Math.floor(Math.random() * openTiles.length)];
+            var id:int = Math.floor(Math.random() * openTiles.length);
+            var point:Point = openTiles[id];
+            //TODO add remove logic
             return point;
         }
 
-        public function swapTile(point:Point, value:String):String
-        {
-            var oldValue:String = tiles[point.y][point.x];
-            tiles[point.y][point.x] = value;
-            return oldValue;
-        }
     }
 }

@@ -1,6 +1,6 @@
-package com.flashartofwar.frogue 
+package com.gamecook.frogue
 {
-    import com.flashartofwar.frogue.io.IControl;
+    import com.gamecook.frogue.io.IControl;
 
     import flash.display.Sprite;
 

@@ -1,4 +1,4 @@
-package com.flashartofwar.frogue {
+package com.gamecook.frogue {
 
 	import flexunit.framework.Assert;
 	/**

@@ -5,7 +5,7 @@
  * Time: 9:15 PM
  * To change this template use File | Settings | File Templates.
  */
-package com.flashartofwar.frogue.renderer
+package com.gamecook.frogue.renderer
 {
     import flash.display.DisplayObject;
     import flash.display.DisplayObjectContainer;
@@ -32,7 +32,7 @@ package com.flashartofwar.frogue.renderer
             var total:int = tiles.length;
             var rowWidth:int = tiles[0].length;
             var currentTile:String;
-
+            target.clear();
             target.lineStyle(1,0x000000);
 
             for(i = 0; i < total; i++)
@@ -59,6 +59,8 @@ package com.flashartofwar.frogue.renderer
                 break;
                 case "@":
                     return 0xff0000;
+                case "x":
+                    return 0x00ff00;
                 default:
                     return 0x333333;
             }

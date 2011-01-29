@@ -1,4 +1,4 @@
-package com.flashartofwar.frogue.enum 
+package com.gamecook.frogue.enum
 {
 	import org.flexunit.Assert;
 

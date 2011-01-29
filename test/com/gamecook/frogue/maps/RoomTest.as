@@ -1,4 +1,4 @@
-package com.flashartofwar.frogue.maps 
+package com.gamecook.frogue.maps
 {
 	import org.flexunit.Assert;
 
@@ -13,7 +13,8 @@ package com.flashartofwar.frogue.maps
 		{
 			var room:Room = new Room(0, 0, 5, 10);
 			
-			Assert.assertEquals(room.width, 5);			Assert.assertEquals(room.height, 10);
+			Assert.assertEquals(room.width, 5);
+			Assert.assertEquals(room.height, 10);
 		}
 		
 		[Test]

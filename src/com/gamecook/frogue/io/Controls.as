@@ -5,7 +5,7 @@
  * Time: 3:39 PM
  * To change this template use File | Settings | File Templates.
  */
-package com.flashartofwar.frogue.io
+package com.gamecook.frogue.io
 {
     import flash.display.DisplayObject;
     import flash.display.Stage;
@@ -30,7 +30,7 @@ package com.flashartofwar.frogue.io
                 {
                     var dispatcher:IEventDispatcher = target["stage"] as IEventDispatcher;
 
-                    dispatcher.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+                    dispatcher.addEventListener(KeyboardEvent.KEY_UP, onKeyDown);
                 }
             }
         }

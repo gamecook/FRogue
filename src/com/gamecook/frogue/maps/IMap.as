@@ -1,4 +1,4 @@
-package com.flashartofwar.frogue.maps 
+package com.gamecook.frogue.maps
 {
 	import flash.geom.Point;
 
@@ -38,5 +38,12 @@ package com.flashartofwar.frogue.maps
 		function getTileType(position : Point) : String;
 
 		function canEnter(position : Point) : Boolean;
-	}
+
+        function get width():int;
+
+        function get height():int;
+
+        function swapTile(point:Point, value:String):String;
+
+    }
 }

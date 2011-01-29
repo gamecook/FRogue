@@ -1,4 +1,4 @@
-package com.flashartofwar.frogue.characters 
+package com.gamecook.frogue.characters
 {
 
 	/**

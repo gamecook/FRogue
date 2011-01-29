@@ -1,6 +1,6 @@
-package com.flashartofwar.frogue.maps
+package com.gamecook.frogue.maps
 {
-	import com.flashartofwar.frogue.enum.TilesEnum;
+	import com.gamecook.frogue.enum.TilesEnum;
 	import flash.geom.Point;
     import flash.geom.Rectangle;
 
@@ -237,14 +237,22 @@ package com.flashartofwar.frogue.maps
             return _rooms;
         }
 
-        public function get width():Number
+        public function get width():int
         {
             return _width;
         }
 
-        public function get height():Number
+        public function get height():int
         {
             return _height;
+        }
+
+        //TODO need to unit test this
+        public function swapTile(point:Point, value:String):String
+        {
+            var oldValue:String = tiles[point.y][point.x];
+            tiles[point.y][point.x] = value;
+            return oldValue;
         }
 
     }

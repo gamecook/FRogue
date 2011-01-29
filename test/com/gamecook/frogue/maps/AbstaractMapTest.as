@@ -1,4 +1,4 @@
-package com.flashartofwar.frogue.maps 
+package com.gamecook.frogue.maps
 {
 	import flash.geom.Point;
 
@@ -6,7 +6,7 @@ package com.flashartofwar.frogue.maps
 
     import org.flexunit.Assert;
 
-	import com.flashartofwar.frogue.maps.AbstractMap;
+	import com.gamecook.frogue.maps.AbstractMap;
 
 	/**
 	 * @author jessefreeman

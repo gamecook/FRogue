@@ -1,4 +1,4 @@
-package com.flashartofwar.frogue.maps 
+package com.gamecook.frogue.maps
 {
 	import flash.utils.Dictionary;
 
