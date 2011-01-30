@@ -1,8 +1,6 @@
 package com.gamecook.frogue.maps
 {
-	import com.gamecook.frogue.enum.TilesEnum;
 	import flash.geom.Point;
-    import flash.geom.Rectangle;
 
     /**
 	 * The MIT License
@@ -58,16 +56,6 @@ package com.gamecook.frogue.maps
 		public function addRow(tiles : Array) : void
 		{
 			_tiles.push(tiles);
-		}
-
-		/**
-		 * 
-		 * @param position
-		 * @return 
-		 */
-		public function canEnter(position : Point) : Boolean
-		{
-			return TilesEnum.isImpassable(getTileType(position));
 		}
 
 		/**

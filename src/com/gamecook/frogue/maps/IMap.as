@@ -37,8 +37,6 @@ package com.gamecook.frogue.maps
 
 		function getTileType(position : Point) : String;
 
-		function canEnter(position : Point) : Boolean;
-
         function get width():int;
 
         function get height():int;

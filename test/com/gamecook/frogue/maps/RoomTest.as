@@ -42,12 +42,7 @@ package com.gamecook.frogue.maps
 		public function testEdges():void
 		{
 			var room:Room = new Room(1,1,2,2);
-			var array:Array = [
-								{x:1,y:1,dir:3}
-			
-								];
-			
-			
+			var array:Array = [{x:1,y:1,dir:3}];
 			Assert.assertEquals(room.edges()[0].y, room.edges()[0], {x:1,y:1,dir:3});
 		}
 	}

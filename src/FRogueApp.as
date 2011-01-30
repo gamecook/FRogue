@@ -1,5 +1,6 @@
 package  
 {
+    import com.gamecook.frogue.helpers.MovementHelper;
     import com.gamecook.frogue.helpers.PopulateMapHelper;
     import com.gamecook.frogue.io.Controls;
     import com.gamecook.frogue.io.IControl;
@@ -40,18 +41,18 @@ package
 	 * THE SOFTWARE.
 	 * 
 	 */
+    [SWF(width="800",height="480",backgroundColor="#000000",frameRate="60")]
 	public class FRogueApp extends Sprite implements IControl
 	{
 
-        public var playerPosition:Point;
-		public var map:RandomMap;
+        public var map:RandomMap;
         private var renderer:MapRenderer;
         private var renderWidth:int = 800/20;
         private var renderHeight:int = 480/20;
         private var controls:Controls;
-        private var invalidate:Boolean = true;
-        private var oldTileValue:String;
+
         private var populateMapHelper:PopulateMapHelper;
+        private var movementHelper:MovementHelper;
 
         /**
 		 * 
@@ -60,9 +61,8 @@ package
 		{
 			
 			configureStage();
-			trace("Hello World");
 
-            var tmpSize:int = 40;
+            var tmpSize:int = 70;
 
             var t:Number = getTimer();
             map = new RandomMap();
@@ -71,24 +71,19 @@ package
             populateMapHelper = new PopulateMapHelper(map);
             populateMapHelper.populateMap("x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x");
 
-            //Setup player position
-            playerPosition = populateMapHelper.getRandomEmptyPoint();
-            oldTileValue = " ";
-            map.swapTile(playerPosition, "@");
-
+            movementHelper = new MovementHelper(map, populateMapHelper.getRandomEmptyPoint());
             renderer = new MapRenderer(this.graphics);
 
             controls = new Controls(this);
 
             addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            move(playerPosition.x,playerPosition.y);
 
-            //TODO there is a bug in renderer that doesn't let you see the last row
+
 		}
 
         private function onEnterFrame(event:Event):void
         {
-            render(playerPosition);
+            render();
         }
 
 		private function configureStage() : void 
@@ -99,59 +94,31 @@ package
 
         public function up():void
         {
-            move(0,-1);
+            movementHelper.up();
         }
 
         public function down():void
         {
-            move(0,1);
+            movementHelper.down();
         }
 
         public function right():void
         {
-            move(1,0);
+            movementHelper.right();
         }
 
         public function left():void
         {
-            move(-1,0);
+            movementHelper.left();
         }
 
-        private function move(x:int, y:int):void
+        public function render():void
         {
-            var tmpPosition:Point = playerPosition.clone();
-            tmpPosition.x += x;
-            tmpPosition.y += y;
-
-            if(tmpPosition.x < 0 || tmpPosition.x+1 > map.width)
-                return;
-
-            if(tmpPosition.y < 0 || tmpPosition.y+1 > map.height)
-                return;
-
-            if(!map.canEnter(tmpPosition))
-            {;
-                map.swapTile(playerPosition, oldTileValue);
-                playerPosition.x = tmpPosition.x;
-                playerPosition.y = tmpPosition.y;
-                oldTileValue = map.swapTile(playerPosition, "@");
-
-                render(playerPosition);
-                invalidate = true;
-            }
-        }
-
-        public function render(position:Point):void
-        {
-            if(!invalidate)
-                return;
-
-            var tiles =TimeMethodExecutionUtil.execute("getSurroundingTiles", map.getSurroundingTiles,position, renderWidth, renderHeight);
+            //TODO there is a bug in renderer that doesn't let you see the last row
+            var tiles =TimeMethodExecutionUtil.execute("getSurroundingTiles", map.getSurroundingTiles, movementHelper.playerPosition, renderWidth, renderHeight);
 
             TimeMethodExecutionUtil.execute("renderMap", renderer.renderMap,tiles);
 
-            invalidate = false;
-            tiles.length = 0;
         }
 
     }

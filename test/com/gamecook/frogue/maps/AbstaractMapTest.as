@@ -48,24 +48,6 @@ package com.gamecook.frogue.maps
 
 		[Test]
 
-		public function testCanEnter() : void
-		{
-			tiles = [["#","#","#"],["#","_","#"],["#","#","#"]];
-			var point : Point = new Point(0, 1);
-			Assert.assertTrue("Looking at " + getTileType(point) + " tile.", canEnter(point));	
-		}
-
-		[Test]
-
-		public function testCanNotEnter() : void
-		{
-			tiles = [["#","#","#"],["#","_","#"],["#","#","#"]];
-			var point : Point = new Point(1, 1);
-			Assert.assertFalse("Looking at " + getTileType(point) + " tile.", canEnter(point));		
-		}
-
-		[Test]
-
 		public function testGetTileType() : void
 		{
 			tiles = [["#","#","#"],["#","_","#"],["#","#","@"]];
@@ -269,7 +251,7 @@ package com.gamecook.frogue.maps
 		}
 
         [Test]
-        public function testCalculateRangeCenter()
+        public function testCalculateRangeCenter():void
         {
             tiles = [["a","b","c","d"]];
 			var obj : Object = calculateRange(1,3, width);
@@ -278,7 +260,7 @@ package com.gamecook.frogue.maps
         }
 
         [Test]
-        public function testCalculateRangeCenterLargeSet()
+        public function testCalculateRangeCenterLargeSet():void
         {
             tiles = [["a","b","c","d","e","f","g","h","i"]];
             var obj : Object = calculateRange(4,5, width);
@@ -287,7 +269,7 @@ package com.gamecook.frogue.maps
         }
 
         [Test]
-        public function testCalculateRangeCenterLeft()
+        public function testCalculateRangeCenterLeft():void
         {
             tiles = [["a","b","c","d","e","f","g","h","i"]];
             var obj : Object = calculateRange(1,5, width);
@@ -296,7 +278,7 @@ package com.gamecook.frogue.maps
         }
 
         [Test]
-        public function testCalculateRangeCenterLeftLargeSet()
+        public function testCalculateRangeCenterLeftLargeSet():void
         {
             tiles = [["a","b","c","d","e","f","g","h","i"]];
             var obj : Object = calculateRange(1,7, width);
@@ -305,7 +287,7 @@ package com.gamecook.frogue.maps
         }
 
         [Test]
-        public function testCalculateRangeCenterRight()
+        public function testCalculateRangeCenterRight():void
         {
             tiles = [["a","b","c","d","e","f","g","h","i"]];
             var obj : Object = calculateRange(7,5, width);
@@ -314,7 +296,7 @@ package com.gamecook.frogue.maps
         }
 
         [Test]
-        public function testCalculateRangeCenterRightLargeSet()
+        public function testCalculateRangeCenterRightLargeSet():void
         {
             tiles = [["a","b","c","d","e","f","g","h","i"]];
             var obj : Object = calculateRange(7,7, width);
@@ -323,7 +305,7 @@ package com.gamecook.frogue.maps
         }
 
         [Test]
-        public function testCalculateFullRangeLargeSet()
+        public function testCalculateFullRangeLargeSet():void
         {
             tiles = [
             ["01","02","03","04","05","06","07","08","09"],
