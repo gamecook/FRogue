@@ -12,11 +12,15 @@ package com.gamecook.frogue.helpers
 
     import flash.geom.Point;
 
-    public class MovementHelper implements IControl
+    public class MovementHelper
     {
         private var _playerPosition:Point;
         private var oldTileValue:String;
         private var map:IMap;
+        public static const UP:Point = new Point(0,-1);
+        public static const DOWN:Point = new Point(0,1);
+        public static const RIGHT:Point = new Point(1,0);
+        public static const LEFT:Point = new Point(-1,0);
 
         public function MovementHelper(map:IMap, startPosition:Point)
         {
@@ -26,51 +30,30 @@ package com.gamecook.frogue.helpers
             map.swapTile(playerPosition, "@");
         }
 
-        public function up():void
+
+
+        public function move(x:int, y:int, playerToken:String = "@"):void
         {
-            move(0,-1);
+            map.swapTile(playerPosition, oldTileValue);
+            playerPosition.x += x;
+            playerPosition.y += y;
+            oldTileValue = map.swapTile(playerPosition, playerToken);
         }
 
-        public function down():void
-        {
-            move(0,1);
-        }
-
-        public function right():void
-        {
-            move(1,0);
-        }
-
-        public function left():void
-        {
-            move(-1,0);
-        }
-
-        public function move(x:int, y:int):void
+        public function previewMove(x:int, y:int):String
         {
             var tmpPosition:Point = playerPosition.clone();
             tmpPosition.x += x;
             tmpPosition.y += y;
 
             if(tmpPosition.x < 0 || tmpPosition.x+1 > map.width)
-                return;
+                return null;
 
             if(tmpPosition.y < 0 || tmpPosition.y+1 > map.height)
-                return;
+                return null;
 
-            var tile:String = map.getTileType(tmpPosition);
+            return map.getTileType(tmpPosition);
 
-           if(tile == " ")
-           {
-                map.swapTile(playerPosition, oldTileValue);
-                playerPosition.x = tmpPosition.x;
-                playerPosition.y = tmpPosition.y;
-                oldTileValue = map.swapTile(playerPosition, "@");
-           }
-            else
-           {
-               // Lookup what to do with this
-           }
         }
 
         public function get playerPosition():Point

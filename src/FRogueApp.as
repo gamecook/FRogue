@@ -78,7 +78,6 @@ package
 
             addEventListener(Event.ENTER_FRAME, onEnterFrame);
 
-
 		}
 
         private function onEnterFrame(event:Event):void
@@ -94,22 +93,22 @@ package
 
         public function up():void
         {
-            movementHelper.up();
+            move(MovementHelper.UP);
         }
 
         public function down():void
         {
-            movementHelper.down();
+            move(MovementHelper.DOWN);
         }
 
         public function right():void
         {
-            movementHelper.right();
+            move(MovementHelper.RIGHT);
         }
 
         public function left():void
         {
-            movementHelper.left();
+            move(MovementHelper.LEFT);
         }
 
         public function render():void
@@ -118,6 +117,19 @@ package
             var tiles =TimeMethodExecutionUtil.execute("getSurroundingTiles", map.getSurroundingTiles, movementHelper.playerPosition, renderWidth, renderHeight);
 
             TimeMethodExecutionUtil.execute("renderMap", renderer.renderMap,tiles);
+
+        }
+
+        public function move(value:Point):void
+        {
+            var tile:String = movementHelper.previewMove(value.x, value.y);
+
+            switch(tile)
+            {
+                case " ": case "x":
+                    movementHelper.move(value.x, value.y);
+                    break;
+            }
 
         }
 
