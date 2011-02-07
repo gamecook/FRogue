@@ -30,8 +30,6 @@ package com.gamecook.frogue.helpers
             map.swapTile(playerPosition, "@");
         }
 
-
-
         public function move(x:int, y:int, playerToken:String = "@"):void
         {
             map.swapTile(playerPosition, oldTileValue);
@@ -40,7 +38,7 @@ package com.gamecook.frogue.helpers
             oldTileValue = map.swapTile(playerPosition, playerToken);
         }
 
-        public function previewMove(x:int, y:int):String
+        public function previewMove(x:int, y:int):Point
         {
             var tmpPosition:Point = playerPosition.clone();
             tmpPosition.x += x;
@@ -52,7 +50,7 @@ package com.gamecook.frogue.helpers
             if(tmpPosition.y < 0 || tmpPosition.y+1 > map.height)
                 return null;
 
-            return map.getTileType(tmpPosition);
+            return tmpPosition;
 
         }
 

@@ -6,7 +6,7 @@ package
     import com.gamecook.frogue.io.IControl;
     import com.gamecook.frogue.maps.RandomMap;
 
-    import com.gamecook.frogue.renderer.MapRenderer;
+    import com.gamecook.frogue.renderer.MapDrawingRenderer;
 
     import com.gamecook.util.TimeMethodExecutionUtil;
 
@@ -15,6 +15,7 @@ package
 	import flash.display.Sprite;
     import flash.events.Event;
     import flash.geom.Point;
+    import flash.geom.Rectangle;
     import flash.utils.getTimer;
 
     /**
@@ -46,13 +47,14 @@ package
 	{
 
         public var map:RandomMap;
-        private var renderer:MapRenderer;
+        private var renderer:MapDrawingRenderer;
         private var renderWidth:int = 800/20;
         private var renderHeight:int = 480/20;
         private var controls:Controls;
 
         private var populateMapHelper:PopulateMapHelper;
         private var movementHelper:MovementHelper;
+        private var invalid:Boolean = true;
 
         /**
 		 * 
@@ -72,7 +74,7 @@ package
             populateMapHelper.populateMap("x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x");
 
             movementHelper = new MovementHelper(map, populateMapHelper.getRandomEmptyPoint());
-            renderer = new MapRenderer(this.graphics);
+            renderer = new MapDrawingRenderer(this.graphics, new Rectangle(0, 0, 20, 20));
 
             controls = new Controls(this);
 
@@ -113,24 +115,37 @@ package
 
         public function render():void
         {
+            if(invalid)
+            {
             //TODO there is a bug in renderer that doesn't let you see the last row
             var tiles =TimeMethodExecutionUtil.execute("getSurroundingTiles", map.getSurroundingTiles, movementHelper.playerPosition, renderWidth, renderHeight);
 
             TimeMethodExecutionUtil.execute("renderMap", renderer.renderMap,tiles);
-
+                invalid = false;
+            }
         }
 
         public function move(value:Point):void
         {
-            var tile:String = movementHelper.previewMove(value.x, value.y);
 
-            switch(tile)
+            var tmpPoint:Point = movementHelper.previewMove(value.x, value.y);
+
+            if(tmpPoint != null)
             {
-                case " ": case "x":
-                    movementHelper.move(value.x, value.y);
-                    break;
+                var tile:String = map.getTileType(tmpPoint);
+                switch(tile)
+                {
+                    case " ": case "x":
+                        movementHelper.move(value.x, value.y);
+                        invalidate();
+                        break;
+                }
             }
+        }
 
+        protected function invalidate():void
+        {
+            invalid = true;
         }
 
     }
