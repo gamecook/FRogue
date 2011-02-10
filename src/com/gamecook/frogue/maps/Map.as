@@ -26,7 +26,7 @@ package com.gamecook.frogue.maps
 	 * THE SOFTWARE.
 	 * 
 	 */
-	public class AbstractMap implements IMap
+	public class Map implements IMap
 	{
 		protected var _tiles : Array = [];
 		protected var dirs : Array;
@@ -43,10 +43,9 @@ package com.gamecook.frogue.maps
 		 * @param self
 		 * @throws Error
 		 */
-		public function AbstractMap(self : AbstractMap)
+		public function Map()
 		{
-			if (! self)
-				throw new Error("Can not create AbstractMap, please extend.");
+            //TODO need to pass in width/height into constructor
 		}
 
 		/**
@@ -115,11 +114,6 @@ package com.gamecook.frogue.maps
 			return stringMap;
 		}
 
-        public function get rooms():Array
-        {
-            return _rooms;
-        }
-
         public function get width():int
         {
             return _width;
@@ -138,5 +132,9 @@ package com.gamecook.frogue.maps
             return oldValue;
         }
 
+        public function getTileID(row:int, column:int):int
+        {
+            return row * width + column;
+        }
     }
 }

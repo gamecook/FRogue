@@ -32,7 +32,7 @@ package com.gamecook.frogue.renderer
                 for(column = 0; column < rowWidth; column ++)
                 {
                     currentTile = tiles[row][column];
-                    renderTile(column, row, currentTile, selection.getTileID(column,row));
+                    renderTile(column, row, currentTile, selection.getTileID(column, row));
                 }
             }
 

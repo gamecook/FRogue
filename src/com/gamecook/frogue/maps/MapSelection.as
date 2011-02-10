@@ -13,13 +13,13 @@ package com.gamecook.frogue.maps
 
     public class MapSelection implements IMapSelection
     {
-        private var map:IMap;
-        private var tiles:Array = [];
-        private var offsetX:int = 0;
-        private var offsetY:int = 0;
-        private var centerPoint:Point;
-        private var width:int = 0;
-        private var height:int = 0;
+        protected var map:IMap;
+        protected var tiles:Array = [];
+        protected var offsetX:int = 0;
+        protected var offsetY:int = 0;
+        protected var centerPoint:Point;
+        protected var width:int = 0;
+        protected var height:int = 0;
 
         public function MapSelection(map:IMap, width:int, height:int)
         {
@@ -162,7 +162,7 @@ package com.gamecook.frogue.maps
 
         public function getTileID(column:int, row:int):int
         {
-            return (row + offsetY) * map.width + (column + offsetX);
+            return map.getTileID(row + offsetY, column + offsetX);
         }
     }
 }

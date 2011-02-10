@@ -26,7 +26,7 @@ package com.gamecook.frogue.maps
 	 * THE SOFTWARE.
 	 * 
 	 */
-	public class RandomMap extends AbstractMap 
+	public class RandomMap extends Map
 	{
         private var openTiles:Array = [];
 
@@ -36,7 +36,7 @@ package com.gamecook.frogue.maps
 		 */
 		public function RandomMap()
 		{
-			super(this);
+			super();
 		}
 
 		/**
@@ -291,6 +291,11 @@ package com.gamecook.frogue.maps
             var point:Point = openTiles[id];
             //TODO add remove logic
             return point;
+        }
+
+        public function getRooms():Array
+        {
+            return _rooms;
         }
 
     }

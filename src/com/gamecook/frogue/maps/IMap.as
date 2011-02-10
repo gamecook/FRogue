@@ -33,8 +33,6 @@ package com.gamecook.frogue.maps
 
 		function get tiles() : Array;
 
-		//function getSurroundingTiles(center : Point, horizontalRange : Number, verticalRange : Number) : Array;
-
 		function getTileType(position : Point) : String;
 
         function get width():int;
@@ -43,5 +41,6 @@ package com.gamecook.frogue.maps
 
         function swapTile(point:Point, value:String):String;
 
+        function getTileID(row:int, column:int):int;
     }
 }
