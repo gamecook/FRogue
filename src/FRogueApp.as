@@ -4,6 +4,7 @@ package
     import com.gamecook.frogue.helpers.PopulateMapHelper;
     import com.gamecook.frogue.io.Controls;
     import com.gamecook.frogue.io.IControl;
+    import com.gamecook.frogue.maps.MapSelection;
     import com.gamecook.frogue.maps.RandomMap;
 
     import com.gamecook.frogue.renderer.MapDrawingRenderer;
@@ -55,6 +56,7 @@ package
         private var populateMapHelper:PopulateMapHelper;
         private var movementHelper:MovementHelper;
         private var invalid:Boolean = true;
+        private var mapSelection:MapSelection;
 
         /**
 		 * 
@@ -69,11 +71,14 @@ package
             var t:Number = getTimer();
             map = new RandomMap();
             TimeMethodExecutionUtil.execute("generateMap",map.generateMap, tmpSize);
+            mapSelection = new MapSelection(map, renderWidth, renderHeight);
 
             populateMapHelper = new PopulateMapHelper(map);
             populateMapHelper.populateMap("x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x");
 
             movementHelper = new MovementHelper(map, populateMapHelper.getRandomEmptyPoint());
+            mapSelection.setCenter(movementHelper.playerPosition);
+
             renderer = new MapDrawingRenderer(this.graphics, new Rectangle(0, 0, 20, 20));
 
             controls = new Controls(this);
@@ -117,10 +122,8 @@ package
         {
             if(invalid)
             {
-            //TODO there is a bug in renderer that doesn't let you see the last row
-            var tiles =TimeMethodExecutionUtil.execute("getSurroundingTiles", map.getSurroundingTiles, movementHelper.playerPosition, renderWidth, renderHeight);
-
-            TimeMethodExecutionUtil.execute("renderMap", renderer.renderMap,tiles);
+                //TODO there is a bug in renderer that doesn't let you see the last row
+                TimeMethodExecutionUtil.execute("renderMap", renderer.renderMap, mapSelection);
                 invalid = false;
             }
         }
@@ -137,6 +140,7 @@ package
                 {
                     case " ": case "x":
                         movementHelper.move(value.x, value.y);
+                        mapSelection.setCenter(movementHelper.playerPosition);
                         invalidate();
                         break;
                 }

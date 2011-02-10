@@ -60,94 +60,6 @@ package com.gamecook.frogue.maps
 
 		/**
 		 * 
-		 * @param center
-		 * @param horizontalRange
-		 * @param verticalRange
-		 * @return 
-		 */
-		public function getSurroundingTiles(center : Point, horizontalRange : Number, verticalRange : Number) : Array
-		{
-            //TODO need to test different vertical and horizontal ranges, on horizontal is being used.
-
-			var range : Array = [];
-			var i : int;
-
-            var hRangeObj:Object = calculateRange(center.x, horizontalRange, width);
-            var vRangeObj:Object = calculateRange(center.y, verticalRange+1, height);
-
-			for (i = vRangeObj.start;i < vRangeObj.end;i ++)
-			{
-                range.push(getTilesInRow(i, hRangeObj.start, hRangeObj.end));
-			}
-
-			return range;
-		}
-
-        protected function calculateRange(center:int, range:int, length:int):Object
-        {
-            var obj:Object = {};
-
-            range --;
-
-            if(center == 0)
-            {
-                // At far right
-                obj.start = center;
-                obj.end = range;
-            }
-            else if(center == length-1)
-            {
-                // At far right
-                obj.start = center - range;
-                obj.end = center;
-            }
-            else
-            {
-                // Center
-                var split:int = Math.floor(range * .5);
-                var paddingLeft:int = split;
-                var paddingRight:int = range - split;
-                var mapCenter:int = Math.floor(length * .5);
-
-                if(center < mapCenter)
-                {
-                    var leftOutOfBounds:int = center - paddingLeft;
-                    if(leftOutOfBounds < 0)
-                    {
-                        paddingRight -= leftOutOfBounds;
-                        paddingLeft += leftOutOfBounds;
-                    }
-                }
-                else if(center > mapCenter)
-                {
-                    var rightOutOfBounds:int = (length-1) - (center + paddingRight);
-                    if(rightOutOfBounds < 0)
-                    {
-                        paddingRight += rightOutOfBounds;
-                        paddingLeft -= rightOutOfBounds;
-                    }
-                }
-                obj.start = center - paddingLeft;
-                obj.end = obj.start + paddingLeft + paddingRight;
-            }
-
-            // Just in case, make sure set is always in range
-            if(obj.start < 0)
-            {
-                // If start is less then 0, shift selection back into range.
-                obj.start = 0;
-                obj.end ++;
-            }
-
-            // Make sure selection is never larger then the length.
-            if(obj.end > length)
-                obj.end = length;
-
-            return obj;
-        }
-
-		/**
-		 * 
 		 * @param position
 		 * @return 
 		 */
@@ -201,23 +113,6 @@ package com.gamecook.frogue.maps
 			}
 
 			return stringMap;
-		}
-
-		/**
-		 * 
-		 * @param i
-		 * @param start
-		 * @param end
-		 * @return 
-		 */
-		protected function getTilesInRow(i : int, start : Number, end : Number) : Array
-		{
-
-			var row : Array = _tiles[i] as Array;
-
-			var tiles : Array = row.slice(start, end+1);
-
-			return tiles;
 		}
 
         public function get rooms():Array
