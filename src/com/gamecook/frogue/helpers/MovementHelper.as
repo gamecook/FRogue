@@ -22,12 +22,10 @@ package com.gamecook.frogue.helpers
         public static const RIGHT:Point = new Point(1,0);
         public static const LEFT:Point = new Point(-1,0);
 
-        public function MovementHelper(map:IMap, startPosition:Point)
+        public function MovementHelper(map:IMap)
         {
             this.map = map;
-            _playerPosition = startPosition;
-            oldTileValue = " ";
-            map.swapTile(playerPosition, "@");
+
         }
 
         public function move(x:int, y:int, playerToken:String = "@"):void
@@ -57,6 +55,13 @@ package com.gamecook.frogue.helpers
         public function get playerPosition():Point
         {
             return _playerPosition;
+        }
+
+        public function startPosition(value:Point):void
+        {
+            _playerPosition = value;
+            oldTileValue = "E";
+            map.swapTile(value, "@");
         }
     }
 

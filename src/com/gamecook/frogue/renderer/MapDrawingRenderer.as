@@ -28,8 +28,7 @@ package com.gamecook.frogue.renderer
         override protected function renderTile(j:int, i:int, currentTile:String, tileID:int):void
         {
             super.renderTile(j, i, currentTile, tileID);
-            if(currentTile == "@")
-                trace("tileID", tileID);
+
             tileRect.x = j * tileRect.width;
             tileRect.y = i * tileRect.height;
 

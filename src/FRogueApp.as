@@ -73,10 +73,14 @@ package
             TimeMethodExecutionUtil.execute("generateMap",map.generateMap, tmpSize);
             mapSelection = new MapSelection(map, renderWidth, renderHeight);
 
+
             populateMapHelper = new PopulateMapHelper(map);
+            populateMapHelper.indexMap();
             populateMapHelper.populateMap("x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x");
 
-            movementHelper = new MovementHelper(map, populateMapHelper.getRandomEmptyPoint());
+            movementHelper = new MovementHelper(map);
+            movementHelper.startPosition(populateMapHelper.getRandomEmptyPoint());
+
             mapSelection.setCenter(movementHelper.playerPosition);
 
             renderer = new MapDrawingRenderer(this.graphics, new Rectangle(0, 0, 20, 20));

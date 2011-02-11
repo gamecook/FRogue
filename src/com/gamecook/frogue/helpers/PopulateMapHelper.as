@@ -19,10 +19,9 @@ package com.gamecook.frogue.helpers
         public function PopulateMapHelper(map:IMap)
         {
             this.map = map;
-            indexMap();
         }
 
-        private function indexMap():void
+        public function indexMap():void
         {
             var tiles:Array = map.tiles;
             var i:int;
@@ -53,12 +52,14 @@ package com.gamecook.frogue.helpers
         private function randomlyPlaceTile(key:String):void
         {
             var point:Point = getRandomEmptyPoint();
-            placeTile(point, key);
+            if(point)
+                placeTile(point, key);
         }
 
         private function placeTile(point:Point, key:String):void
         {
             map.swapTile(point, key);
+
         }
 
         public function getRandomEmptyPoint():Point
