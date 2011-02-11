@@ -16,8 +16,8 @@ package com.gamecook.frogue.renderer
 
     public class MapDrawingRenderer extends AbstractMapRenderer
     {
-        private var target:Graphics;
-        private var tileRect:Rectangle;
+        protected var target:Graphics;
+        protected var tileRect:Rectangle;
 
         public function MapDrawingRenderer(target:Graphics, tileSize:Rectangle)
         {
