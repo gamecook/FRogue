@@ -23,6 +23,7 @@ package com.gamecook.frogue.helpers
 
         public function indexMap():void
         {
+            openSpaces.length = 0;
             var tiles:Array = map.tiles;
             var i:int;
             var j:int;
