@@ -7,43 +7,41 @@
  */
 package com.gamecook.frogue.renderer
 {
+    import com.gamecook.frogue.sprites.SpriteSheet;
+
     import flash.display.BitmapData;
+    import flash.geom.Point;
     import flash.geom.Rectangle;
 
     public class MapBitmapRenderer extends AbstractMapRenderer
     {
-        private var target:BitmapData;
-        private var tileRect:Rectangle;
+        protected var target:BitmapData;
+        protected var spriteSheet:SpriteSheet;
 
-        public function MapBitmapRenderer(target:BitmapData, tileSize:Rectangle)
+        public function MapBitmapRenderer(target:BitmapData, spriteSheet:SpriteSheet)
         {
+            this.spriteSheet = spriteSheet;
             this.target = target;
-            tileRect = tileSize;
         }
 
         override protected function renderTile(j:int, i:int, currentTile:String, tileID:int):void
         {
+            var bitmapData:BitmapData = tileBitmap(currentTile);
+            var tileRect:Rectangle = new Rectangle(0,0, bitmapData.width, bitmapData.height);
+            var point:Point = new Point(j * tileRect.width, i * tileRect.height);
 
-            tileRect.x = j * tileRect.width;
-            tileRect.y = i * tileRect.height;
+            target.copyPixels(bitmapData, tileRect, point);
 
-            //TODO add in bitmap support
-           /* target.lineStyle(1, 0x000000);
-            target.beginFill(tileColorMap(currentTile));
-            target.drawRect(tileRect.x, tileRect.y, tileRect.width, tileRect.height);
-            target.endFill();*/
         }
 
         override protected function clearMap():void
         {
-            //TODO add in bitmap clear support
-            //target.clear();
+            target.fillRect(new Rectangle(0,0,target.width, target.height),0);
         }
 
         protected function tileBitmap(value:String):BitmapData
         {
-            //TODO add in bitmap support
-            return null;
+            return spriteSheet.getSprite(value);
         }
     }
 }
