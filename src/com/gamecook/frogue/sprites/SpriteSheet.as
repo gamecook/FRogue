@@ -70,24 +70,36 @@ package com.gamecook.frogue.sprites
          * @return
          *
          */
-        public function getSprite(name:String, background:String = null):BitmapData
+        public function getSprite(...names):BitmapData
         {
-            if(!spriteCache[name])
+
+            var id:String = names.join(",");
+
+            if(!spriteCache[id])
             {
-                var rect:Rectangle = spriteRectangles[name];
 
-                // Applies the correct offset when sampling the data
-                var m:Matrix = new Matrix();
-                m.translate(- rect.x, - rect.y);
+                var width:int = spriteRectangles[names[0]].width;
+                var height:int = spriteRectangles[names[0]].height;
 
-                // Creates new BitmapData
-                var bmd:BitmapData = background == null ? new BitmapData(rect.width, rect.height, true, 0xffffff) : getSprite(background).clone();
-                bmd.draw(bitmapData, m, null, null, null, true);
+                var bmd:Bitmap = new Bitmap(new BitmapData(width, height, true, 0x000000));
 
-                spriteCache[name] = bmd;
+                var rect:Rectangle;
+
+                var i:int;
+                var total:int = names.length;
+
+                for(i = 0; i < total; i++)
+                {
+                    rect = spriteRectangles[names[i]];
+                    var m:Matrix = new Matrix();
+                    m.translate(- rect.x, - rect.y);
+                    bmd.bitmapData.draw(bitmapData, m, null, null, null, true);
+                }
+
+                spriteCache[id] = bmd.bitmapData.clone();
             }
 
-            return spriteCache[name];
+            return spriteCache[id];
 
         }
 

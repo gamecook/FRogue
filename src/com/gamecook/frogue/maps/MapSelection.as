@@ -156,7 +156,7 @@ package com.gamecook.frogue.maps
         public function setCenter(value:Point):void
         {
             centerPoint = value.clone();
-            TimeMethodExecutionUtil.execute("getSurroundingTiles", getSurroundingTiles, centerPoint, width, height);
+            getSurroundingTiles(centerPoint, width, height);
 
         }
 
