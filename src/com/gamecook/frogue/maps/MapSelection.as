@@ -44,6 +44,8 @@ package com.gamecook.frogue.maps
 
             var hRangeObj:Object = calculateRange(center.x, horizontalRange, map.width);
             var vRangeObj:Object = calculateRange(center.y, verticalRange + 1, map.height);
+            //TODO look into why this is off by one
+            vRangeObj.end +=1;
 
             offsetX = hRangeObj.start;
             offsetY = vRangeObj.start;
@@ -163,6 +165,11 @@ package com.gamecook.frogue.maps
         public function getTileID(column:int, row:int):int
         {
             return map.getTileID(row + offsetY, column + offsetX);
+        }
+
+        public function getCenter():Point
+        {
+            return centerPoint;
         }
     }
 }
