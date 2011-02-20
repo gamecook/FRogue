@@ -65,7 +65,7 @@ package com.gamecook.frogue.helpers
 
         public function getRandomEmptyPoint():Point
         {
-            openSpaces.sort(function(){return Math.round(Math.random());});
+            openSpaces.sort(function():int{return Math.round(Math.random());});
             return openSpaces.pop();
         }
     }

@@ -7,7 +7,6 @@
  */
 package com.gamecook.frogue.maps
 {
-    import com.gamecook.util.TimeMethodExecutionUtil;
 
     import flash.geom.Point;
 

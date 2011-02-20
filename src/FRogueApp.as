@@ -4,12 +4,11 @@ package
     import com.gamecook.frogue.helpers.PopulateMapHelper;
     import com.gamecook.frogue.io.Controls;
     import com.gamecook.frogue.io.IControl;
+    import com.gamecook.frogue.maps.FogOfWarMapSelection;
     import com.gamecook.frogue.maps.MapSelection;
     import com.gamecook.frogue.maps.RandomMap;
 
     import com.gamecook.frogue.renderer.MapDrawingRenderer;
-
-    import com.gamecook.util.TimeMethodExecutionUtil;
 
     import flash.display.StageScaleMode;
 	import flash.display.StageAlign;
@@ -57,6 +56,7 @@ package
         private var movementHelper:MovementHelper;
         private var invalid:Boolean = true;
         private var mapSelection:MapSelection;
+        private var fogOfWarSelection:FogOfWarMapSelection;
 
         /**
 		 * 
@@ -70,9 +70,9 @@ package
 
             var t:Number = getTimer();
             map = new RandomMap();
-            TimeMethodExecutionUtil.execute("generateMap",map.generateMap, tmpSize);
+            map.generateMap(tmpSize);
             mapSelection = new MapSelection(map, renderWidth, renderHeight);
-
+            fogOfWarSelection = new FogOfWarMapSelection(map, mapSelection, 4, 4);
 
             populateMapHelper = new PopulateMapHelper(map);
             populateMapHelper.indexMap();
@@ -81,7 +81,7 @@ package
             movementHelper = new MovementHelper(map);
             movementHelper.startPosition(populateMapHelper.getRandomEmptyPoint());
 
-            mapSelection.setCenter(movementHelper.playerPosition);
+            fogOfWarSelection.setCenter(movementHelper.playerPosition);
 
             renderer = new MapDrawingRenderer(this.graphics, new Rectangle(0, 0, 20, 20));
 
@@ -126,8 +126,7 @@ package
         {
             if(invalid)
             {
-                //TODO there is a bug in renderer that doesn't let you see the last row
-                TimeMethodExecutionUtil.execute("renderMap", renderer.renderMap, mapSelection);
+                renderer.renderMap(fogOfWarSelection);
                 invalid = false;
             }
         }
@@ -144,7 +143,7 @@ package
                 {
                     case " ": case "x":
                         movementHelper.move(value.x, value.y);
-                        mapSelection.setCenter(movementHelper.playerPosition);
+                        fogOfWarSelection.setCenter(movementHelper.playerPosition);
                         invalidate();
                         break;
                 }
