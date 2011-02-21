@@ -30,7 +30,7 @@ package com.gamecook.frogue.io
                 {
                     var dispatcher:IEventDispatcher = target["stage"] as IEventDispatcher;
 
-                    dispatcher.addEventListener(KeyboardEvent.KEY_UP, onKeyDown);
+                    dispatcher.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
                 }
             }
         }
