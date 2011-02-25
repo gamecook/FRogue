@@ -42,5 +42,7 @@ package com.gamecook.frogue.maps
         function swapTile(point:Point, value:String):String;
 
         function getTileID(row:int, column:int):int;
+
+        function getOpenTiles():Array;
     }
 }

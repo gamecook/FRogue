@@ -28,9 +28,7 @@ package com.gamecook.frogue.maps
 	 */
 	public class RandomMap extends Map
 	{
-        private var openTiles:Array = [];
-
-		/**
+        /**
 		 * 
 		 * @param size
 		 */
@@ -277,10 +275,14 @@ package com.gamecook.frogue.maps
 				for (var y : int = 0;y < this._height;y ++)
 				{
 					if (_tiles[x][y] == ' ') _tiles[x][y] = '#';
-					if (_tiles[x][y] != '#') _tiles[x][y] = ' ';
-
-                    if(_tiles[x][y] == " ")
+					if (_tiles[x][y] != '#')
+                    {
+                        _tiles[x][y] = ' ';
                         openTiles.push(new Point(x,y));
+                    }
+
+                    trace("tile",_tiles[x][y]);
+
 				}
 		}
 

@@ -37,6 +37,7 @@ package com.gamecook.frogue.maps
 		protected var _rooms : Array;
 		protected var _width : Number;
         protected var _height : Number;
+        protected var openTiles:Array = [];
 
 		/**
 		 * 
@@ -135,6 +136,11 @@ package com.gamecook.frogue.maps
         public function getTileID(row:int, column:int):int
         {
             return row * width + column;
+        }
+
+        public function getOpenTiles():Array
+        {
+            return openTiles;
         }
     }
 }

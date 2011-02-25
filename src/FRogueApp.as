@@ -75,7 +75,6 @@ package
             fogOfWarSelection = new FogOfWarMapSelection(map, mapSelection, 4, 4);
 
             populateMapHelper = new PopulateMapHelper(map);
-            populateMapHelper.indexMap();
             populateMapHelper.populateMap("x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x");
 
             movementHelper = new MovementHelper(map);

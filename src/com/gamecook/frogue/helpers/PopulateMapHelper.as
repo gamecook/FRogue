@@ -19,26 +19,7 @@ package com.gamecook.frogue.helpers
         public function PopulateMapHelper(map:IMap)
         {
             this.map = map;
-        }
-
-        public function indexMap():void
-        {
-            openSpaces.length = 0;
-            var tiles:Array = map.tiles;
-            var i:int;
-            var j:int;
-            var totalColumns:int = map.width;
-            var totalRows:int = map.height;
-
-            for (i = 0; i < totalRows; i++)
-            {
-                for(j=0; j < totalColumns; j++)
-                {
-                    if(tiles[i][j] == " ")
-                        openSpaces.push(new Point(j,i));
-                }
-            }
-
+            openSpaces = map.getOpenTiles();
         }
 
         public function populateMap(... keys):void
@@ -65,8 +46,8 @@ package com.gamecook.frogue.helpers
 
         public function getRandomEmptyPoint():Point
         {
-            openSpaces.sort(function():int{return Math.round(Math.random());});
-            return openSpaces.pop();
+            return openSpaces[Math.floor((Math.random() * openSpaces.length))];
         }
+
     }
 }
