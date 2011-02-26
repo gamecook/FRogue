@@ -86,16 +86,20 @@ package com.gamecook.frogue.maps
             var rows:int = visibleTiles.length;
             var columns:int = visibleTiles[0].length;
             var uID:int;
-
+            var lightTiles:Array = [];
             for(i = 0; i < rows; i++)
             {
                 for(j = 0; j < columns; j++)
                 {
                     uID = visibleSelection.getTileID(j,i);
                     exploredTiles[uID] = " ";
+                    lightTiles.push(uID);
                 }
 
             }
+
+            cleanUpLight(visibleSelection, lightTiles);
+
 
             selection.setCenter(value);
             visibleTiles = selection.getTiles();
@@ -113,12 +117,22 @@ package com.gamecook.frogue.maps
                     {
                         visibleTiles[i][j] = "*";
                     }
+                    else
+                    {
+                        if(lightTiles.indexOf(uID) == -1 && tile != "#") visibleTiles[i][j] = "?";
+                    }
                 }
 
             }
 
             if(!saveExploredTiles)
                 exploredTiles.length = 0;
+        }
+
+        private function cleanUpLight(visibleSelection:IMapSelection, lightTiles:Array):void
+        {
+            trace("Player Center", visibleSelection.getCenter().x - visibleSelection.getOffsetX(), visibleSelection.getCenter().y - visibleSelection.getOffsetY());
+
         }
 
         public function clear():void
@@ -130,5 +144,6 @@ package com.gamecook.frogue.maps
         {
             return selection.getCenter();
         }
+
     }
 }

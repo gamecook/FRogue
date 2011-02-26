@@ -54,6 +54,8 @@ package com.gamecook.frogue.renderer
                     return 0xff0000;
                 case "x":
                     return 0x00ff00;
+                case "?":
+                    return 0x666666;
                 default:
                     return 0x333333;
             }
