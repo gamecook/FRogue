@@ -45,6 +45,7 @@ package com.gamecook.frogue.maps
         private var exploredTiles:Array = [];
         private var visibleSelection:IMapSelection;
         private var saveExploredTiles:Boolean = true;
+        private var _revealAll:Boolean;
 
         public function FogOfWarMapSelection(map:IMap, selection:IMapSelection, width:int, height:int)
         {
@@ -94,6 +95,7 @@ package com.gamecook.frogue.maps
                     uID = visibleSelection.getTileID(j,i);
                     exploredTiles[uID] = " ";
                     lightTiles.push(uID);
+
                 }
 
             }
@@ -113,13 +115,14 @@ package com.gamecook.frogue.maps
                 {
                     uID = selection.getTileID(j,i);
                     tile = visibleTiles[i][j];
-                    if(!exploredTiles[uID])
+
+                    if(_revealAll || exploredTiles[uID])
                     {
-                        visibleTiles[i][j] = "*";
+                        if(lightTiles.indexOf(uID) == -1 && tile != "#") visibleTiles[i][j] = "?";
                     }
                     else
                     {
-                        if(lightTiles.indexOf(uID) == -1 && tile != "#") visibleTiles[i][j] = "?";
+                        visibleTiles[i][j] = "*";
                     }
                 }
 
@@ -145,5 +148,10 @@ package com.gamecook.frogue.maps
             return selection.getCenter();
         }
 
+        public function revealAll(value:Boolean):void
+        {
+            _revealAll = value;
+
+        }
     }
 }
