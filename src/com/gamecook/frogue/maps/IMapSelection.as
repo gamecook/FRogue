@@ -17,5 +17,6 @@ package com.gamecook.frogue.maps
         function getOffsetY():int
         function setCenter(value:Point):void;
         function getCenter():Point;
+        function toString():String;
     }
 }

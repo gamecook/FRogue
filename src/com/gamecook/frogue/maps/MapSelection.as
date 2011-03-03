@@ -170,5 +170,20 @@ package com.gamecook.frogue.maps
         {
             return centerPoint;
         }
+
+        public function toString() : String
+		{
+			var stringMap : String = "";
+			var total : int = getTiles.length;
+			var i : int;
+
+			// Render Map
+			for (i = 0;i < total;i ++)
+			{
+				stringMap = stringMap + (getTiles[i] as Array).join() + "\n";
+			}
+
+			return stringMap;
+		}
     }
 }

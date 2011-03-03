@@ -43,18 +43,18 @@ package com.gamecook.frogue.maps
         private var width:int;
         private var height:int;
         private var exploredTiles:Array = [];
-        private var visibleSelection:IMapSelection;
+        //private var visibleSelection:IMapSelection;
         private var saveExploredTiles:Boolean = true;
         private var _revealAll:Boolean;
-
+        private var mapEdgePoints:Array;
+        private var lightTiles:Array = [];
+        private var visiblePoints:Array = [];
         public function FogOfWarMapSelection(map:IMap, selection:IMapSelection, width:int, height:int)
         {
             this.height = height;
             this.width = width;
             this.selection = selection;
             this.map = map;
-            visibleSelection = new MapSelection(map, width, height);
-
         }
 
         public function getTileID(column:int, row:int):int
@@ -79,63 +79,116 @@ package com.gamecook.frogue.maps
 
         public function setCenter(value:Point):void
         {
-            visibleSelection.setCenter(value);
 
-            var i:int;
-            var j:int;
-            var visibleTiles:Array = visibleSelection.getTiles();
-            var rows:int = visibleTiles.length;
-            var columns:int = visibleTiles[0].length;
-            var uID:int;
-            var lightTiles:Array = [];
-            for(i = 0; i < rows; i++)
-            {
-                for(j = 0; j < columns; j++)
-                {
-                    uID = visibleSelection.getTileID(j,i);
-                    exploredTiles[uID] = " ";
-                    lightTiles.push(uID);
-
-                }
-
-            }
-
-            cleanUpLight(visibleSelection, lightTiles);
-
-
+            // Map map selection on player position
             selection.setCenter(value);
-            visibleTiles = selection.getTiles();
-            rows = visibleTiles.length;
-            columns = visibleTiles[0].length;
-            var tile:String;
 
-            for(i = 0; i < rows; i++)
-            {
-                for(j = 0; j < columns; j++)
-                {
-                    uID = selection.getTileID(j,i);
-                    tile = visibleTiles[i][j];
+            var tiles:Array = selection.getTiles();
 
-                    if(_revealAll || exploredTiles[uID])
-                    {
-                        if(lightTiles.indexOf(uID) == -1 && tile != "#") visibleTiles[i][j] = "?";
-                    }
-                    else
-                    {
-                        visibleTiles[i][j] = "*";
-                    }
-                }
+            // Need to adjust the center point coming in
+            var newPoint:Point = value.clone();
+            newPoint.x -= selection.getOffsetX();
+            newPoint.y -= selection.getOffsetY();
 
-            }
+            calculateLight(tiles,new Point(newPoint.y, newPoint.x));
+
+            applyLight(tiles, visiblePoints);
 
             if(!saveExploredTiles)
                 exploredTiles.length = 0;
         }
 
-        private function cleanUpLight(visibleSelection:IMapSelection, lightTiles:Array):void
+        private function applyLight(tiles:Array, visiblePoints:Array):void
         {
-            trace("Player Center", visibleSelection.getCenter().x - visibleSelection.getOffsetX(), visibleSelection.getCenter().y - visibleSelection.getOffsetY());
+            var width:int = tiles[0].length;
+            var height:int = tiles.length;
 
+            var rows:int;
+            var columns:int;
+
+            for(rows = 0; rows< height; rows++)
+            {
+                for(columns = 0; columns < width; columns ++)
+                {
+                    var uID:int = getTileID(rows,  columns);
+                    if(visiblePoints.indexOf(uID) == -1)
+                        tiles[rows][columns] = "?";
+                }
+
+            }
+
+            visiblePoints.length = 0;
+        }
+
+        private function calculateLight(tiles:Array, center:Point):void
+        {
+
+            var totalRows:int = tiles.length ;
+            var totalColumns:int = tiles[0].length;
+            var i:int;
+
+            // Get top
+            for (i = 0; i < totalColumns; i++)
+            {
+                raytrace(center.x, center.y,0,i, tiles);
+                raytrace(center.x, center.y,totalRows - 1,i, tiles);
+            }
+
+            for (i = 0; i < totalRows; i++)
+            {
+                raytrace(center.x, center.y, i, 0, tiles);
+                raytrace(center.x, center.y, i, totalColumns - 1, tiles);
+            }
+        }
+
+
+        private function raytrace(x0:int, y0:int, x1:int, y1:int, tiles:Array):void
+        {
+
+            var dx:int = Math.abs(x1 - x0);
+            var dy:int = Math.abs(y1 - y0);
+            var x:int = x0;
+            var y:int = y0;
+            var n:int = 1 + dx + dy;
+            var x_inc:int = (x1 > x0) ? 1 : -1;
+            var y_inc:int = (y1 > y0) ? 1 : -1;
+            var error:int = dx - dy;
+            dx *= 2;
+            dy *= 2;
+
+            for (; n > 0; --n)
+            {
+                var isWall:Boolean = visit(x, y, tiles);
+                if (isWall)
+                    n = 0;
+
+                if (error > 0)
+                {
+                    x += x_inc;
+                    error -= dy;
+                }
+                else
+                {
+                    y += y_inc;
+                    error += dx;
+                }
+            }
+
+        }
+
+        private function visit(x:int, y:int, tiles:Array):Boolean
+        {
+            if(x >= tiles.length)
+                x = tiles.length-1;
+
+            var tile:String = tiles[x][y];
+
+            var uID:int = selection.getTileID(x,y);
+
+            if(visiblePoints.indexOf(uID) == -1)
+                visiblePoints.push(uID);
+
+            return tile == "#" ? true : false;
         }
 
         public function clear():void
@@ -153,5 +206,19 @@ package com.gamecook.frogue.maps
             _revealAll = value;
 
         }
+
+        public function toString() : String
+		{
+			var stringMap : String = "";
+			var total : int = getTiles().length;
+			var i : int;
+			// Render Map
+			for (i = 0;i < total;i ++)
+			{
+				stringMap = stringMap + (getTiles()[i] as Array).join() + "\n";
+			}
+
+			return stringMap;
+		}
     }
 }
