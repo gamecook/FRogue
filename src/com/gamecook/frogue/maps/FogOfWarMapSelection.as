@@ -36,59 +36,30 @@ package com.gamecook.frogue.maps
 
     import flash.geom.Point;
 
-    public class FogOfWarMapSelection implements IMapSelection
+    public class FogOfWarMapSelection extends MapSelection
     {
-        private var map:IMap;
-        private var selection:IMapSelection;
-        private var width:int;
-        private var height:int;
         private var exploredTiles:Array = [];
-        //private var visibleSelection:IMapSelection;
         private var saveExploredTiles:Boolean = true;
         private var _revealAll:Boolean;
-        private var mapEdgePoints:Array;
-        private var lightTiles:Array = [];
         private var visiblePoints:Array = [];
-        public function FogOfWarMapSelection(map:IMap, selection:IMapSelection, width:int, height:int)
+        private var viewDistance:int;
+
+
+        public function FogOfWarMapSelection(map:IMap, width:int, height:int, viewDistance:int)
         {
-            this.height = height;
-            this.width = width;
-            this.selection = selection;
-            this.map = map;
+            this.viewDistance = viewDistance;
+            super(map, width, height);
         }
 
-        public function getTileID(column:int, row:int):int
-        {
-            return selection.getTileID(column, row);
-        }
-
-        public function getTiles():Array
-        {
-            return selection.getTiles();
-        }
-
-        public function getOffsetX():int
-        {
-            return selection.getOffsetX();
-        }
-
-        public function getOffsetY():int
-        {
-            return selection.getOffsetY();
-        }
-
-        public function setCenter(value:Point):void
+        override protected function getSurroundingTiles(center:Point, horizontalRange:Number, verticalRange:Number):Array
         {
 
-            // Map map selection on player position
-            selection.setCenter(value);
-
-            var tiles:Array = selection.getTiles();
+            var tiles:Array = super.getSurroundingTiles(center, horizontalRange, verticalRange);
 
             // Need to adjust the center point coming in
-            var newPoint:Point = value.clone();
-            newPoint.x -= selection.getOffsetX();
-            newPoint.y -= selection.getOffsetY();
+            var newPoint:Point = center.clone();
+            newPoint.x -= getOffsetX();
+            newPoint.y -= getOffsetY();
 
             calculateLight(tiles,new Point(newPoint.y, newPoint.x));
 
@@ -96,6 +67,8 @@ package com.gamecook.frogue.maps
 
             if(!saveExploredTiles)
                 exploredTiles.length = 0;
+
+            return tiles;
         }
 
         private function applyLight(tiles:Array, visiblePoints:Array):void
@@ -110,9 +83,13 @@ package com.gamecook.frogue.maps
             {
                 for(columns = 0; columns < width; columns ++)
                 {
-                    var uID:int = getTileID(rows,  columns);
+                    var uID:int = getTileID(columns,rows);
                     if(visiblePoints.indexOf(uID) == -1)
-                        tiles[rows][columns] = "?";
+                        if(exploredTiles[uID])
+                            tiles[rows][columns] =  tiles[rows][columns]== "#" ? "#" : "?";
+                        else
+                            tiles[rows][columns] = "*";
+
                 }
 
             }
@@ -149,7 +126,7 @@ package com.gamecook.frogue.maps
             var dy:int = Math.abs(y1 - y0);
             var x:int = x0;
             var y:int = y0;
-            var n:int = 1 + dx + dy;
+            var n:int = 4;//1 + dx + dy;
             var x_inc:int = (x1 > x0) ? 1 : -1;
             var y_inc:int = (y1 > y0) ? 1 : -1;
             var error:int = dx - dy;
@@ -178,16 +155,20 @@ package com.gamecook.frogue.maps
 
         private function visit(x:int, y:int, tiles:Array):Boolean
         {
-            if(x >= tiles.length)
-                x = tiles.length-1;
+            //TODO not sure why I would ever get a value less then 0 but I do
+            if(x < 0) x = 0;
+            if(y < 0) y = 0;
 
             var tile:String = tiles[x][y];
 
-            var uID:int = selection.getTileID(x,y);
+            var uID:int = getTileID(y,x);
 
             if(visiblePoints.indexOf(uID) == -1)
                 visiblePoints.push(uID);
 
+            exploredTiles[uID] = " ";
+
+            //TODO this should use the type types to see if it is see threw not just a wall to add shadow around monsters
             return tile == "#" ? true : false;
         }
 
@@ -196,29 +177,11 @@ package com.gamecook.frogue.maps
             exploredTiles.length = 0;
         }
 
-        public function getCenter():Point
-        {
-            return selection.getCenter();
-        }
-
         public function revealAll(value:Boolean):void
         {
             _revealAll = value;
 
         }
 
-        public function toString() : String
-		{
-			var stringMap : String = "";
-			var total : int = getTiles().length;
-			var i : int;
-			// Render Map
-			for (i = 0;i < total;i ++)
-			{
-				stringMap = stringMap + (getTiles()[i] as Array).join() + "\n";
-			}
-
-			return stringMap;
-		}
     }
 }
