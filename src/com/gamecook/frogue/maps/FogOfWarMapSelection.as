@@ -85,11 +85,12 @@ package com.gamecook.frogue.maps
                 {
                     var uID:int = getTileID(columns,rows);
                     if(visiblePoints.indexOf(uID) == -1)
-                        if(exploredTiles[uID])
+                    {
+                        if(exploredTiles[uID] || _revealAll)
                             tiles[rows][columns] =  tiles[rows][columns]== "#" ? "#" : "?";
                         else
                             tiles[rows][columns] = "*";
-
+                    }
                 }
 
             }
@@ -107,26 +108,26 @@ package com.gamecook.frogue.maps
             // Get top
             for (i = 0; i < totalColumns; i++)
             {
-                raytrace(center.x, center.y,0,i, tiles);
-                raytrace(center.x, center.y,totalRows - 1,i, tiles);
+                rayTrace(center.x, center.y,0,i, tiles);
+                rayTrace(center.x, center.y,totalRows - 1,i, tiles);
             }
 
             for (i = 0; i < totalRows; i++)
             {
-                raytrace(center.x, center.y, i, 0, tiles);
-                raytrace(center.x, center.y, i, totalColumns - 1, tiles);
+                rayTrace(center.x, center.y, i, 0, tiles);
+                rayTrace(center.x, center.y, i, totalColumns - 1, tiles);
             }
         }
 
 
-        private function raytrace(x0:int, y0:int, x1:int, y1:int, tiles:Array):void
+        private function rayTrace(x0:int, y0:int, x1:int, y1:int, tiles:Array):void
         {
 
             var dx:int = Math.abs(x1 - x0);
             var dy:int = Math.abs(y1 - y0);
             var x:int = x0;
             var y:int = y0;
-            var n:int = 4;//1 + dx + dy;
+            var n:int = viewDistance;//1 + dx + dy;
             var x_inc:int = (x1 > x0) ? 1 : -1;
             var y_inc:int = (y1 > y0) ? 1 : -1;
             var error:int = dx - dy;
@@ -157,7 +158,9 @@ package com.gamecook.frogue.maps
         {
             //TODO not sure why I would ever get a value less then 0 but I do
             if(x < 0) x = 0;
+            if(x > tiles.length -1) x = tiles.length -1;
             if(y < 0) y = 0;
+            if(y > tiles[0].length -1) y = tiles[0].length -1;
 
             var tile:String = tiles[x][y];
 
