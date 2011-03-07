@@ -45,6 +45,7 @@ package com.gamecook.frogue.maps
         private var viewDistance:int;
         private var _tourchMode:Boolean;
         private var _fullLineOfSight:Boolean;
+        private var visitedTiles:int = 0;
 
 
         public function FogOfWarMapSelection(map:IMap, width:int, height:int, viewDistance:int)
@@ -171,9 +172,16 @@ package com.gamecook.frogue.maps
             if(visiblePoints.indexOf(uID) == -1)
                 visiblePoints.push(uID);
 
-            if(!_tourchMode || !fullLineOfSite)
-                exploredTiles[uID] = " ";
+            if(!_tourchMode || !_fullLineOfSight)
+            {
+                if(!exploredTiles[uID])
+                {
+                    exploredTiles[uID] = " ";
 
+                    if(tile != "#")
+                        visitedTiles ++;
+                }
+            }
             //TODO this should use the type types to see if it is see threw not just a wall to add shadow around monsters
             return tile == "#" ? true : false;
         }
@@ -194,9 +202,14 @@ package com.gamecook.frogue.maps
             _tourchMode = value;
         }
 
-        public function fullLineOfSite(value:Boolean):void
+        public function fullLineOfSight(value:Boolean):void
         {
             _fullLineOfSight = value;
+        }
+
+        public function getVisitedTiles():int
+        {
+            return visitedTiles;
         }
     }
 }
