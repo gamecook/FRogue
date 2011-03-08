@@ -296,5 +296,12 @@ package com.gamecook.frogue.maps
             return _rooms;
         }
 
+ /*       override public function toObject():Object
+        {
+            var mapObj:Object = super.toObject();
+            mapObj.tiles = tiles;
+
+            return mapObj;
+        }*/
     }
 }

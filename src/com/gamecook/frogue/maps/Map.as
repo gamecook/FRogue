@@ -92,7 +92,8 @@ package com.gamecook.frogue.maps
 		 */
 		public function set tiles(value : Array) : void
 		{
-			_tiles = value.slice();
+			//TODO Need to index tiles to find empty tiles.
+            _tiles = value.slice();
             _width = tiles[0].length;
             _height = tiles.length;
 		}
@@ -141,6 +142,13 @@ package com.gamecook.frogue.maps
         public function getOpenTiles():Array
         {
             return openTiles;
+        }
+
+        public function toObject():Object
+        {
+            var mapObj:Object = {};
+            mapObj.tiles = tiles;
+            return mapObj;
         }
     }
 }
