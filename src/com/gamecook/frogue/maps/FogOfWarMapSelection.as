@@ -38,15 +38,14 @@ package com.gamecook.frogue.maps
 
     public class FogOfWarMapSelection extends MapSelection
     {
-        private var exploredTiles:Array = [];
-        private var saveExploredTiles:Boolean = true;
-        private var _revealAll:Boolean;
-        private var visiblePoints:Array = [];
-        private var viewDistance:int;
-        private var _tourchMode:Boolean;
-        private var _fullLineOfSight:Boolean;
-        private var visitedTiles:int = 0;
-
+        protected var exploredTilesHashMap:Array = [];
+        protected var saveExploredTiles:Boolean = true;
+        protected var _revealAll:Boolean;
+        protected var visiblePoints:Array = [];
+        protected var viewDistance:int;
+        protected var _tourchMode:Boolean;
+        protected var _fullLineOfSight:Boolean;
+        protected var exploredTiles:Array = [];
 
         public function FogOfWarMapSelection(map:IMap, width:int, height:int, viewDistance:int)
         {
@@ -69,7 +68,7 @@ package com.gamecook.frogue.maps
             applyLight(tiles, visiblePoints);
 
             if(!saveExploredTiles)
-                exploredTiles.length = 0;
+                clear();
 
             return tiles;
         }
@@ -89,7 +88,7 @@ package com.gamecook.frogue.maps
                     var uID:int = getTileID(columns,rows);
                     if(visiblePoints.indexOf(uID) == -1)
                     {
-                        if(exploredTiles[uID] || _revealAll)
+                        if(exploredTilesHashMap[uID] || _revealAll)
                             tiles[rows][columns] =  tiles[rows][columns]== "#" ? "#" : "?";
                         else
                             tiles[rows][columns] = "*";
@@ -174,12 +173,12 @@ package com.gamecook.frogue.maps
 
             if(!_tourchMode || !_fullLineOfSight)
             {
-                if(!exploredTiles[uID])
+                if(!exploredTilesHashMap[uID])
                 {
-                    exploredTiles[uID] = " ";
+                    exploredTilesHashMap[uID] = " ";
 
                     if(tile != "#")
-                        visitedTiles ++;
+                        exploredTiles.push(uID);
                 }
             }
             //TODO this should use the type types to see if it is see threw not just a wall to add shadow around monsters
@@ -188,6 +187,7 @@ package com.gamecook.frogue.maps
 
         public function clear():void
         {
+            exploredTilesHashMap.length = 0;
             exploredTiles.length = 0;
         }
 
@@ -209,7 +209,12 @@ package com.gamecook.frogue.maps
 
         public function getVisitedTiles():int
         {
-            return visitedTiles;
+            return exploredTiles.length;
+        }
+
+        public function getExploredTiles():Array
+        {
+            return exploredTiles;
         }
     }
 }
