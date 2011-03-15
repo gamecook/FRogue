@@ -140,5 +140,11 @@ package com.gamecook.frogue.maps
 			Assert.assertEquals(23, getTileID(5,3));
 		}
 
+        /*[Test]
+        public function testTileIDToPoint():void
+        {
+
+        }*/
+
 	}
 }

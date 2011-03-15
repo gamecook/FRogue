@@ -96,7 +96,26 @@ package com.gamecook.frogue.maps
             _tiles = value.slice();
             _width = tiles[0].length;
             _height = tiles.length;
+            indexOpenTiles();
 		}
+
+        protected function indexOpenTiles():void
+        {
+            var row:int;
+            var column:int;
+            var totalRows:int = height;
+            var totalColumns:int = width;
+            var tile:String;
+
+            for(row = 0; row < _height; row++)
+            {
+                for(column=0; column < _width; column++)
+                {
+                    tile = _tiles[row][column];
+                    openTiles.push(new Point(column, row));
+                }
+            }
+        }
 
 		/**
 		 * 
@@ -137,6 +156,11 @@ package com.gamecook.frogue.maps
         public function getTileID(row:int, column:int):int
         {
             return row * width + column;
+        }
+
+        public function tileIDToPoint(id:int):Point
+        {
+            return new Point(id%_width, id/_width);
         }
 
         public function getOpenTiles():Array

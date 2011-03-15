@@ -115,5 +115,9 @@ package com.gamecook.frogue.sprites
             spriteCache.length = 0;
         }
 
+        public function hasSprite(value:String):Boolean
+        {
+            return spriteNames.indexOf(value) != -1;
+        }
     }
 }

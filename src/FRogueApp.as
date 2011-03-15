@@ -191,6 +191,9 @@ package
                     case " ": case "x":
                         movementHelper.move(value.x, value.y);
                         fogOfWarSelection.setCenter(movementHelper.playerPosition);
+
+                        trace(map.tileIDToPoint(40));
+
                         invalidate();
                         break;
                 }
