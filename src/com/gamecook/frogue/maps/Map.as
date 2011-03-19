@@ -112,7 +112,8 @@ package com.gamecook.frogue.maps
                 for(column=0; column < _width; column++)
                 {
                     tile = _tiles[row][column];
-                    openTiles.push(new Point(column, row));
+                    if(tile != "#")
+                        openTiles.push(new Point(column, row));
                 }
             }
         }

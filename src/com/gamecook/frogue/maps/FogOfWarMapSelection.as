@@ -89,7 +89,7 @@ package com.gamecook.frogue.maps
                     if(visiblePoints.indexOf(uID) == -1)
                     {
                         if(exploredTilesHashMap[uID] || _revealAll)
-                            tiles[rows][columns] =  tiles[rows][columns]== "#" ? "#" : "?";
+                            tiles[rows][columns] =  tiles[rows][columns]== "?" ? "#" : "?";
                         else
                             tiles[rows][columns] = "*";
                     }
@@ -173,12 +173,10 @@ package com.gamecook.frogue.maps
 
             if(!_tourchMode || !_fullLineOfSight)
             {
-                if(!exploredTilesHashMap[uID])
+                if(!exploredTilesHashMap[uID] && tile != "#")
                 {
                     exploredTilesHashMap[uID] = " ";
-
-                    if(tile != "#")
-                        exploredTiles.push(uID);
+                    exploredTiles.push(uID);
                 }
             }
             //TODO this should use the type types to see if it is see threw not just a wall to add shadow around monsters

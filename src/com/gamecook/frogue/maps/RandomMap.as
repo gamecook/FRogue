@@ -285,7 +285,7 @@ package com.gamecook.frogue.maps
                     {
                         _tiles[x][y] = ' ';
                         openTiles.push(new Point(y, x));
-                        trace("Open Tile", this.getTileID(x, y));
+                        //trace("Open Tile", this.getTileID(x, y));
                     }
 
                 }
