@@ -5,18 +5,18 @@
  * Time: 5:39 PM
  * To change this template use File | Settings | File Templates.
  */
-package com.gamecook.frogue.helpers
+package com.gamecook.frogue.maps
 {
     import com.gamecook.frogue.maps.IMap;
 
     import flash.geom.Point;
 
-    public class PopulateMapHelper
+    public class MapPopulater
     {
         private var map:IMap;
         private var openSpaces:Array = [];
 
-        public function PopulateMapHelper(map:IMap)
+        public function MapPopulater(map:IMap)
         {
             this.map = map;
             openSpaces = map.getOpenTiles();
