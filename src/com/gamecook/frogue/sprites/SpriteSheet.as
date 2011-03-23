@@ -78,10 +78,15 @@ package com.gamecook.frogue.sprites
             if(!spriteCache[id])
             {
 
-                var width:int = spriteRectangles[names[0]].width;
-                var height:int = spriteRectangles[names[0]].height;
+                var width:int;
+                var height:int;
 
-                var bmd:Bitmap = new Bitmap(new BitmapData(width, height, true, 0x000000));
+                var bmd:BitmapData;
+
+                width = spriteRectangles[names[0]].width;
+                height = spriteRectangles[names[0]].height;
+
+                bmd = new BitmapData(width, height, true, 0x000000);
 
                 var rect:Rectangle;
 
@@ -90,13 +95,22 @@ package com.gamecook.frogue.sprites
 
                 for(i = 0; i < total; i++)
                 {
-                    rect = spriteRectangles[names[i]];
-                    var m:Matrix = new Matrix();
-                    m.translate(- rect.x, - rect.y);
-                    bmd.bitmapData.draw(bitmapData, m, null, null, null, true);
+                    if(!spriteCache[names[i]])
+                    {
+
+                        rect = spriteRectangles[names[i]];
+                        var m:Matrix = new Matrix();
+                        m.translate(- rect.x, - rect.y);
+                        bmd.draw(bitmapData, m, null, null, null, true);
+
+                    }
+                    else
+                    {
+                        bmd.draw(spriteCache[names[i]], null, null, null, null, true);
+                    }
                 }
 
-                spriteCache[id] = bmd.bitmapData.clone();
+                spriteCache[id] = bmd.clone();
             }
 
             return spriteCache[id];
@@ -128,6 +142,11 @@ package com.gamecook.frogue.sprites
         public function getSpriteFromCache(value:String):BitmapData
         {
              return spriteCache[value];
+        }
+
+        public function cacheSprite(id:String, bmd:BitmapData):void
+        {
+            spriteCache[id] = bmd.clone();
         }
     }
 }
