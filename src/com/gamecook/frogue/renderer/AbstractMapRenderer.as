@@ -47,5 +47,11 @@ package com.gamecook.frogue.renderer
         protected function clearMap():void
         {
         }
+
+
+        public function renderPlayer(j:int, i:int):void
+        {
+            renderTile(j,i,"@", 0);
+        }
     }
 }

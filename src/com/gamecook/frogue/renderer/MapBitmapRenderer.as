@@ -26,6 +26,8 @@ package com.gamecook.frogue.renderer
 
         override protected function renderTile(j:int, i:int, currentTile:String, tileID:int):void
         {
+            if(currentTile == "@")
+                trace("Player Tile",j,"x",i);
             var bitmapData:BitmapData = tileBitmap(currentTile);
             var tileRect:Rectangle = new Rectangle(0,0, bitmapData.width, bitmapData.height);
             var point:Point = new Point(j * tileRect.width, i * tileRect.height);
@@ -43,5 +45,6 @@ package com.gamecook.frogue.renderer
         {
             return spriteSheet.getSprite(value);
         }
+
     }
 }

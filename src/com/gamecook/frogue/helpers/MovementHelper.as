@@ -30,10 +30,10 @@ package com.gamecook.frogue.helpers
 
         public function move(x:int, y:int, playerToken:String = "@"):void
         {
-            map.swapTile(playerPosition, oldTileValue);
+            //map.swapTile(playerPosition, oldTileValue);
             playerPosition.x += x;
             playerPosition.y += y;
-            oldTileValue = map.swapTile(playerPosition, playerToken);
+            //oldTileValue = map.swapTile(playerPosition, playerToken);
         }
 
         public function previewMove(x:int, y:int):Point
@@ -59,9 +59,10 @@ package com.gamecook.frogue.helpers
 
         public function startPosition(value:Point):void
         {
+            //TODO remmeber to put the Exit in there, needs to be moved into the map setup logic.
             _playerPosition = value;
             oldTileValue = "E";
-            map.swapTile(value, "@");
+            //map.swapTile(value, "@");
         }
     }
 
