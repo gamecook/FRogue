@@ -284,8 +284,7 @@ package com.gamecook.frogue.maps
                     if ((_tiles[x][y] == 'P') || (_tiles[x][y] == 'R'))
                     {
                         _tiles[x][y] = ' ';
-                        openTiles.push(new Point(y, x));
-                        //trace("Open Tile", this.getTileID(x, y));
+                            openTiles.push(new Point(y, x));
                     }
 
                 }

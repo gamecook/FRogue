@@ -1,7 +1,7 @@
 package  
 {
     import com.gamecook.frogue.helpers.MovementHelper;
-    import com.gamecook.frogue.helpers.PopulateMapHelper;
+    import com.gamecook.frogue.maps.MapPopulater;
     import com.gamecook.frogue.io.Controls;
     import com.gamecook.frogue.io.IControl;
     import com.gamecook.frogue.maps.FogOfWarMapSelection;
@@ -52,7 +52,7 @@ package
         private var renderHeight:int = 460/20;
         private var controls:Controls;
 
-        private var populateMapHelper:PopulateMapHelper;
+        private var populateMapHelper:MapPopulater;
         private var movementHelper:MovementHelper;
         private var invalid:Boolean = true;
         private var fogOfWarSelection:FogOfWarMapSelection;
@@ -121,7 +121,7 @@ package
             map.generateMap(tmpSize);
             fogOfWarSelection = new FogOfWarMapSelection(map, renderWidth, renderHeight, 4);
 
-            populateMapHelper = new PopulateMapHelper(map);
+            populateMapHelper = new MapPopulater(map);
             populateMapHelper.populateMap("x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x");
 
             movementHelper = new MovementHelper(map);
