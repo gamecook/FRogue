@@ -49,9 +49,9 @@ package com.gamecook.frogue.renderer
         }
 
 
-        public function renderPlayer(j:int, i:int):void
+        public function renderPlayer(j:int, i:int, tileType:String):void
         {
-            renderTile(j,i,"@", 0);
+            renderTile(j,i, tileType, 0);
         }
     }
 }

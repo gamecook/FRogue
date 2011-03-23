@@ -119,5 +119,15 @@ package com.gamecook.frogue.sprites
         {
             return spriteNames.indexOf(value) != -1;
         }
+
+        public function hasSpriteCached(value:String):Boolean
+        {
+            return (spriteCache[value]);
+        }
+
+        public function getSpriteFromCache(value:String):BitmapData
+        {
+             return spriteCache[value];
+        }
     }
 }
