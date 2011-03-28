@@ -28,6 +28,7 @@ package com.gamecook.frogue.maps
      */
     public class RandomMap extends Map
     {
+        private var roomSize:int = 3;
         /**
          *
          * @param size
@@ -41,8 +42,9 @@ package com.gamecook.frogue.maps
          *
          * @param size
          */
-        public function generateMap(size:Number):void
+        public function generateMap(size:Number, roomSize:Number = 3):void
         {
+            this.roomSize = roomSize;
             tiles.length = 0;
 
             this.mapsize = Math.ceil((size - 3) * .5);
@@ -124,8 +126,8 @@ package com.gamecook.frogue.maps
             while (1)
             {
                 if (trycount > 10) break;
-                var width:Number = Math.floor(Math.random() * 3) + 2;
-                var height:Number = Math.floor(Math.random() * 3) + 2;
+                var width:Number = Math.floor(Math.random() * roomSize) + 1;
+                var height:Number = Math.floor(Math.random() * roomSize) + 1;
                 var x1:Number = Math.floor(Math.random() * (this.mapsize - width)) * 2 + 1;
                 var y1:Number = Math.floor(Math.random() * (this.mapsize - height)) * 2 + 1;
                 var x2:Number = x1 + width * 2;
