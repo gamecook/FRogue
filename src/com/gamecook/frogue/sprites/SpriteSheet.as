@@ -141,7 +141,7 @@ package com.gamecook.frogue.sprites
 
         public function getSpriteFromCache(value:String):BitmapData
         {
-             return spriteCache[value];
+             return spriteCache[value].clone();
         }
 
         public function cacheSprite(id:String, bmd:BitmapData):void
