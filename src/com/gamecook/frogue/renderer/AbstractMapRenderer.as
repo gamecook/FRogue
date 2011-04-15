@@ -7,7 +7,9 @@
  */
 package com.gamecook.frogue.renderer
 {
+    import com.gamecook.frogue.maps.IMap;
     import com.gamecook.frogue.maps.IMapSelection;
+    import com.gamecook.frogue.maps.ISelectTiles;
 
     public class AbstractMapRenderer
     {
@@ -15,7 +17,7 @@ package com.gamecook.frogue.renderer
         {
         }
 
-        public function renderMap(selection:IMapSelection):void
+        public function renderMap(selection:ISelectTiles):void
         {
             var tiles:Array = selection.getTiles();
             var row:int;

@@ -9,10 +9,8 @@ package com.gamecook.frogue.maps
 {
     import flash.geom.Point;
 
-    public interface IMapSelection
+    public interface IMapSelection extends ISelectTiles
     {
-        function getTileID(column:int, row:int):int
-        function getTiles():Array
         function getOffsetX():int
         function getOffsetY():int
         function setCenter(value:Point):void;

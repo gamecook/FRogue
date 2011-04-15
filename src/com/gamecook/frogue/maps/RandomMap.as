@@ -56,7 +56,7 @@ package com.gamecook.frogue.maps
             ];
             this._width = this._height = mapsize * 2 + 3;
 
-            _tiles = [];
+            tiles = [];
             this.paths = [];
             _rooms = [];
             for (var i:int = 0; i < this._height; i ++)
@@ -66,7 +66,7 @@ package com.gamecook.frogue.maps
                 {
                     a.push('#');
                 }
-                _tiles.push(a);
+                tiles.push(a);
             }
 
             genMaze();
@@ -81,7 +81,7 @@ package com.gamecook.frogue.maps
         public function genMaze():void
         {
             var x:Number = 1, y:Number = 1;
-            _tiles[x][y] = ' ';
+            tiles[x][y] = ' ';
             while (1)
             {
                 var dir:Number = Math.floor(Math.random() * 4);
@@ -90,17 +90,17 @@ package com.gamecook.frogue.maps
                     var testdir:Number = (dir + i) % 4;
                     var newx:Number = x + this.dirs[testdir].x * 2;
                     var newy:Number = y + this.dirs[testdir].y * 2;
-                    if (newx > 0 && newx < this._width && newy > 0 && newy < this._height && _tiles[newx][newy] == '#')
+                    if (newx > 0 && newx < this._width && newy > 0 && newy < this._height && tiles[newx][newy] == '#')
                         break;
                 }
                 if (i < 4)
                 {
                     x += this.dirs[testdir].x;
                     y += this.dirs[testdir].y;
-                    _tiles[x][y] = ' ';
+                    tiles[x][y] = ' ';
                     x += this.dirs[testdir].x;
                     y += this.dirs[testdir].y;
-                    _tiles[x][y] = '' + testdir;
+                    tiles[x][y] = '' + testdir;
                 }
                 else
                 {
@@ -108,8 +108,8 @@ package com.gamecook.frogue.maps
                     if (x == 1 && y == 1) break;
                     else
                     {
-                        dir = _tiles[x][y];
-                        _tiles[x][y] = ' ';
+                        dir = tiles[x][y];
+                        tiles[x][y] = ' ';
                         x -= this.dirs[dir].x * 2;
                         y -= this.dirs[dir].y * 2;
                     }
@@ -154,7 +154,7 @@ package com.gamecook.frogue.maps
                 {
                     for (var y:Number = room.y1; y <= room.y2; y ++)
                     {
-                        _tiles[x][y] = 'R';
+                        tiles[x][y] = 'R';
                     }
                 }
             }
@@ -191,14 +191,14 @@ package com.gamecook.frogue.maps
                 var tmpdir:Number = (dir + d) % 4;
                 var tmpx:Number = x + this.dirs[tmpdir].x;
                 var tmpy:Number = y + this.dirs[tmpdir].y;
-                if (_tiles[tmpx][tmpy] == ' ')
+                if (tiles[tmpx][tmpy] == ' ')
                 {
                     path.push({x: x, y: y, dir: dir, nextdir: d});
                     x = tmpx + this.dirs[tmpdir].x;
                     y = tmpy + this.dirs[tmpdir].y;
                     dir = tmpdir;
                     d = 0;
-                    if (_tiles[x][y] == 'R')
+                    if (tiles[x][y] == 'R')
                     {
                         for (var rn:int = 0; rn < _rooms.length; rn ++)
                         {
@@ -249,7 +249,7 @@ package com.gamecook.frogue.maps
             // proper path, draw it in
             for (i = 0; i < path.path.length; i ++)
             {
-                _tiles[path.path[i].x][path.path[i].y] = 'P';
+                tiles[path.path[i].x][path.path[i].y] = 'P';
             }
         }
 
@@ -265,7 +265,7 @@ package com.gamecook.frogue.maps
                 for (var e:int = 0; e < edges.length; e ++)
                 {
                     var edge:Object = edges[e];
-                    if (_tiles[edge.x + this.dirs[edge.dir].x][edge.y + this.dirs[edge.dir].y] == ' ')
+                    if (tiles[edge.x + this.dirs[edge.dir].x][edge.y + this.dirs[edge.dir].y] == ' ')
                         this.checkPath(room, this.findOtherEnd(room, edge.x, edge.y, edge.dir));
                 }
             }
@@ -280,12 +280,12 @@ package com.gamecook.frogue.maps
             {
                 for (var y:int = 0; y < this._height; y ++)
                 {
-                    if (_tiles[x][y] == ' ') _tiles[x][y] = '#';
+                    if (tiles[x][y] == ' ') tiles[x][y] = '#';
 
                     //TODO for now I am just turning all room and path tiles in empty tiles but saving the types out
-                    if ((_tiles[x][y] == 'P') || (_tiles[x][y] == 'R'))
+                    if ((tiles[x][y] == 'P') || (tiles[x][y] == 'R'))
                     {
-                        _tiles[x][y] = ' ';
+                        tiles[x][y] = ' ';
                             openTiles.push(new Point(y, x));
                     }
 

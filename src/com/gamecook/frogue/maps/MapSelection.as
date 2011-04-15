@@ -131,7 +131,7 @@ package com.gamecook.frogue.maps
         protected function getTilesInRow(i : int, start : Number, end : Number) : Array
         {
 
-            var row : Array = map.tiles[i] as Array;
+            var row : Array = map.getTiles()[i] as Array;
 
             var tiles : Array = row.slice(start, end+1);
 

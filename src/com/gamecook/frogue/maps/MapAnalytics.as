@@ -27,7 +27,7 @@ package com.gamecook.frogue.maps {
 
         private function analyzeTiles(onTileCallback:Function = null, matchType:String = null):Array
         {
-            var tiles:Array = map.tiles;
+            var tiles:Array = map.getTiles();
             var row:int;
             var column:int;
             var totalRows:int = map.height;
@@ -83,7 +83,7 @@ package com.gamecook.frogue.maps {
 
         public function getTilePoints(...tileTypes):Array
         {
-            var tiles:Array = map.tiles;
+            var tiles:Array = map.getTiles();
             var row:int;
             var column:int;
             var totalRows:int = map.height;

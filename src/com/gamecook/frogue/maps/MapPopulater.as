@@ -16,6 +16,11 @@ package com.gamecook.frogue.maps
         private var map:IMap;
         private var openSpaces:Array = [];
 
+        public function getOpenSpaces():int
+        {
+            return openSpaces.length;
+        }
+
         public function MapPopulater(map:IMap)
         {
             this.map = map;

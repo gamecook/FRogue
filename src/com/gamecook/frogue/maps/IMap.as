@@ -26,12 +26,8 @@ package com.gamecook.frogue.maps
 	 * THE SOFTWARE.
 	 * 
 	 */
-	public interface IMap 
+	public interface IMap extends ISelectTiles
 	{
-
-		function set tiles(tiles : Array) : void;
-
-		function get tiles() : Array;
 
 		function getTileType(position : Point) : String;
 
@@ -41,8 +37,8 @@ package com.gamecook.frogue.maps
 
         function swapTile(point:Point, value:String):String;
 
-        function getTileID(row:int, column:int):int;
-
         function getOpenTiles():Array;
+
+        function setTiles(value:Array):void;
     }
 }

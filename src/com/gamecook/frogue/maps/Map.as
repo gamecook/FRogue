@@ -28,7 +28,7 @@ package com.gamecook.frogue.maps
 	 */
 	public class Map implements IMap
 	{
-		protected var _tiles : Array = [];
+		protected var tiles : Array = [];
 		protected var dirs : Array;
 
 
@@ -55,7 +55,7 @@ package com.gamecook.frogue.maps
 		 */
 		public function addRow(tiles : Array) : void
 		{
-			_tiles.push(tiles);
+			tiles.push(tiles);
 		}
 
 		/**
@@ -74,22 +74,24 @@ package com.gamecook.frogue.maps
 		 */
 		public function removeRow(id : int) : void
 		{
-			_tiles.splice(id, 1);
+			tiles.splice(id, 1);
 		}
 
 		/**
 		 * 
 		 * @return 
-		 */
+		 *//*
+        [Deprecated]
 		public function get tiles() : Array
 		{
 			return _tiles.slice();
 		}
 
-		/**
+		*//**
 		 * 
 		 * @param value
-		 */
+		 *//*
+        [Deprecated]
 		public function set tiles(value : Array) : void
 		{
 			//TODO Need to index tiles to find empty tiles.
@@ -98,7 +100,7 @@ package com.gamecook.frogue.maps
             _height = tiles.length;
             indexOpenTiles();
 		}
-
+*/
         protected function indexOpenTiles():void
         {
             var row:int;
@@ -111,7 +113,7 @@ package com.gamecook.frogue.maps
             {
                 for(column=0; column < _width; column++)
                 {
-                    tile = _tiles[row][column];
+                    tile = tiles[row][column];
                     if(tile != "#")
                         openTiles.push(new Point(column, row));
                 }
@@ -125,12 +127,12 @@ package com.gamecook.frogue.maps
 		public function toString() : String
 		{
 			var stringMap : String = "";
-			var total : int = _tiles.length;
+			var total : int = tiles.length;
 			var i : int;
 			// Render Map
 			for (i = 0;i < total;i ++)
 			{
-				stringMap = stringMap + (_tiles[i] as Array).join() + "\n";
+				stringMap = stringMap + (tiles[i] as Array).join() + "\n";
 			}
 
 			return stringMap;
@@ -174,6 +176,20 @@ package com.gamecook.frogue.maps
             var mapObj:Object = {};
             mapObj.tiles = tiles;
             return mapObj;
+        }
+
+        public function getTiles():Array
+        {
+            return tiles;
+        }
+
+        public function setTiles(value:Array):void
+        {
+            //TODO Need to index tiles to find empty tiles.
+            tiles = value.slice();
+            _width = tiles[0].length;
+            _height = tiles.length;
+            indexOpenTiles();
         }
     }
 }
