@@ -63,17 +63,17 @@ package com.gamecook.frogue.maps
             newPoint.x -= getOffsetX();
             newPoint.y -= getOffsetY();
 
-            calculateLight(tiles,new Point(newPoint.y, newPoint.x));
+            calculateLight(tiles, new Point(newPoint.y, newPoint.x));
 
             applyLight(tiles, visiblePoints);
 
-            if(!saveExploredTiles)
+            if (!saveExploredTiles)
                 clear();
 
             return tiles;
         }
 
-        private function applyLight(tiles:Array, visiblePoints:Array):void
+        protected function applyLight(tiles:Array, visiblePoints:Array):void
         {
             var width:int = tiles[0].length;
             var height:int = tiles.length;
@@ -100,7 +100,7 @@ package com.gamecook.frogue.maps
             visiblePoints.length = 0;
         }
 
-        private function calculateLight(tiles:Array, center:Point):void
+        protected function calculateLight(tiles:Array, center:Point):void
         {
 
             var totalRows:int = tiles.length ;
@@ -129,7 +129,7 @@ package com.gamecook.frogue.maps
             var dy:int = Math.abs(y1 - y0);
             var x:int = x0;
             var y:int = y0;
-            var n:int = (!_fullLineOfSight) ? viewDistance : 1 + dx + dy;
+            var n:int = viewDistance;//(!_fullLineOfSight) ? viewDistance : 1 + dx + dy;
             var x_inc:int = (x1 > x0) ? 1 : -1;
             var y_inc:int = (y1 > y0) ? 1 : -1;
             var error:int = dx - dy;
@@ -138,7 +138,8 @@ package com.gamecook.frogue.maps
 
             for (; n > 0; --n)
             {
-                var isWall:Boolean = visit(x, y, tiles);
+                var isWall:Boolean = visit(x, y, tiles, n);
+
                 if (isWall)
                     n = 0;
 
@@ -156,7 +157,7 @@ package com.gamecook.frogue.maps
 
         }
 
-        private function visit(x:int, y:int, tiles:Array):Boolean
+        protected function visit(x:int, y:int, tiles:Array, distance:int):Boolean
         {
             //TODO not sure why I would ever get a value less then 0 but I do
             if(x < 0) x = 0;
