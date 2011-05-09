@@ -174,6 +174,13 @@ package
             if(invalid)
             {
                 renderer.renderMap(fogOfWarSelection);
+
+                var pos:Point = movementHelper.playerPosition;
+
+                var x:int = pos.x - fogOfWarSelection.getOffsetX();
+                var y:int = pos.y - fogOfWarSelection.getOffsetY();
+
+                renderer.renderPlayer(x, y, "@");
                 invalid = false;
             }
         }
