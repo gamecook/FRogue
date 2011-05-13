@@ -319,7 +319,6 @@ package com.gamecook.frogue.tiles
 
             var arrayAsString:String = sprites.toString();
             spriteID = arrayAsString;
-            trace("Sprite ID", spriteID);
         }
 
         public function equip(item:IEquipable):IEquipable

@@ -47,6 +47,7 @@ package com.gamecook.frogue.maps
         {
             this.roomSize = roomSize;
             tiles.length = 0;
+            openTiles.length = 0;
 
             this.mapsize = Math.ceil((size - 3) * .5);
             this.dirs = [
