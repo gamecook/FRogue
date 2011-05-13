@@ -7,12 +7,8 @@
  */
 package com.gamecook.frogue.renderer
 {
-    import flash.display.DisplayObject;
-    import flash.display.DisplayObjectContainer;
     import flash.display.Graphics;
-    import flash.display.Shape;
     import flash.geom.Rectangle;
-    import flash.text.TextField;
 
     public class MapDrawingRenderer extends AbstractMapRenderer
     {
@@ -45,11 +41,11 @@ package com.gamecook.frogue.renderer
 
         protected function tileColor(value:String):uint
         {
-            switch(value)
+            switch (value)
             {
                 case " ":
                     return 0xffffff;
-                break;
+                    break;
                 case "@":
                     return 0xff0000;
                 case "x":

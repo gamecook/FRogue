@@ -12,9 +12,13 @@ package com.gamecook.frogue.maps
     public interface IMapSelection extends ISelectTiles
     {
         function getOffsetX():int
+
         function getOffsetY():int
+
         function setCenter(value:Point):void;
+
         function getCenter():Point;
+
         function toString():String;
     }
 }

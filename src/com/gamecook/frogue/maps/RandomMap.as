@@ -29,6 +29,7 @@ package com.gamecook.frogue.maps
     public class RandomMap extends Map
     {
         private var roomSize:int = 3;
+
         /**
          *
          * @param size
@@ -286,7 +287,7 @@ package com.gamecook.frogue.maps
                     if ((tiles[x][y] == 'P') || (tiles[x][y] == 'R'))
                     {
                         tiles[x][y] = ' ';
-                            openTiles.push(new Point(y, x));
+                        openTiles.push(new Point(y, x));
                     }
 
                 }
@@ -298,12 +299,12 @@ package com.gamecook.frogue.maps
             return _rooms;
         }
 
- /*       override public function toObject():Object
-        {
-            var mapObj:Object = super.toObject();
-            mapObj.tiles = tiles;
+        /*       override public function toObject():Object
+         {
+         var mapObj:Object = super.toObject();
+         mapObj.tiles = tiles;
 
-            return mapObj;
-        }*/
+         return mapObj;
+         }*/
     }
 }

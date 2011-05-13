@@ -29,11 +29,6 @@
  */
 package com.gamecook.frogue.maps
 {
-    import com.gamecook.frogue.maps.IMap;
-    import com.gamecook.frogue.maps.IMapSelection;
-
-    import com.gamecook.frogue.maps.MapSelection;
-
     import flash.geom.Point;
 
     public class FogOfWarMapSelection extends MapSelection
@@ -81,15 +76,15 @@ package com.gamecook.frogue.maps
             var rows:int;
             var columns:int;
 
-            for(rows = 0; rows< height; rows++)
+            for (rows = 0; rows < height; rows++)
             {
-                for(columns = 0; columns < width; columns ++)
+                for (columns = 0; columns < width; columns ++)
                 {
-                    var uID:int = getTileID(columns,rows);
-                    if(visiblePoints.indexOf(uID) == -1)
+                    var uID:int = getTileID(columns, rows);
+                    if (visiblePoints.indexOf(uID) == -1)
                     {
-                        if(exploredTilesHashMap[uID] || _revealAll)
-                            tiles[rows][columns] =  tiles[rows][columns]== "?" ? "#" : "?";
+                        if (exploredTilesHashMap[uID] || _revealAll)
+                            tiles[rows][columns] = tiles[rows][columns] == "?" ? "#" : "?";
                         else
                             tiles[rows][columns] = "*";
                     }
@@ -103,15 +98,15 @@ package com.gamecook.frogue.maps
         protected function calculateLight(tiles:Array, center:Point):void
         {
 
-            var totalRows:int = tiles.length ;
+            var totalRows:int = tiles.length;
             var totalColumns:int = tiles[0].length;
             var i:int;
 
             // Get top
             for (i = 0; i < totalColumns; i++)
             {
-                rayTrace(center.x, center.y,0,i, tiles);
-                rayTrace(center.x, center.y,totalRows - 1,i, tiles);
+                rayTrace(center.x, center.y, 0, i, tiles);
+                rayTrace(center.x, center.y, totalRows - 1, i, tiles);
             }
 
             for (i = 0; i < totalRows; i++)
@@ -160,21 +155,21 @@ package com.gamecook.frogue.maps
         protected function visit(x:int, y:int, tiles:Array, distance:int):Boolean
         {
             //TODO not sure why I would ever get a value less then 0 but I do
-            if(x < 0) x = 0;
-            if(x > tiles.length -1) x = tiles.length -1;
-            if(y < 0) y = 0;
-            if(y > tiles[0].length -1) y = tiles[0].length -1;
+            if (x < 0) x = 0;
+            if (x > tiles.length - 1) x = tiles.length - 1;
+            if (y < 0) y = 0;
+            if (y > tiles[0].length - 1) y = tiles[0].length - 1;
 
             var tile:String = tiles[x][y];
 
-            var uID:int = getTileID(y,x);
+            var uID:int = getTileID(y, x);
 
-            if(visiblePoints.indexOf(uID) == -1)
+            if (visiblePoints.indexOf(uID) == -1)
                 visiblePoints.push(uID);
 
-            if(!_tourchMode || !_fullLineOfSight)
+            if (!_tourchMode || !_fullLineOfSight)
             {
-                if(!exploredTilesHashMap[uID] && tile != "#")
+                if (!exploredTilesHashMap[uID] && tile != "#")
                 {
                     exploredTilesHashMap[uID] = " ";
                     exploredTiles.push(uID);

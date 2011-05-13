@@ -7,8 +7,6 @@
  */
 package com.gamecook.frogue.maps
 {
-    import com.gamecook.frogue.maps.IMap;
-
     import flash.geom.Point;
 
     public class MapPopulater
@@ -39,7 +37,7 @@ package com.gamecook.frogue.maps
         private function randomlyPlaceTile(key:String):void
         {
             var point:Point = getRandomEmptyPoint();
-            if(point)
+            if (point)
                 placeTile(point, key);
         }
 

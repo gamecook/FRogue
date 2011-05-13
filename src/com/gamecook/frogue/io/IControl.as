@@ -10,8 +10,11 @@ package com.gamecook.frogue.io
     public interface IControl
     {
         function up():void;
+
         function down():void;
+
         function right():void;
+
         function left():void;
     }
 }

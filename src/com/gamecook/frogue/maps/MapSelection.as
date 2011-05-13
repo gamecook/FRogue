@@ -7,7 +7,6 @@
  */
 package com.gamecook.frogue.maps
 {
-
     import flash.geom.Point;
 
     public class MapSelection implements IMapSelection
@@ -44,7 +43,7 @@ package com.gamecook.frogue.maps
             var hRangeObj:Object = calculateRange(center.x, horizontalRange, map.width);
             var vRangeObj:Object = calculateRange(center.y, verticalRange + 1, map.height);
             //TODO look into why this is off by one
-            vRangeObj.end +=1;
+            vRangeObj.end += 1;
 
             offsetX = hRangeObj.start;
             offsetY = vRangeObj.start;
@@ -63,13 +62,13 @@ package com.gamecook.frogue.maps
 
             range --;
 
-            if(center == 0)
+            if (center == 0)
             {
                 // At far right
                 obj.start = center;
                 obj.end = range;
             }
-            else if(center == length-1)
+            else if (center == length - 1)
             {
                 // At far right
                 obj.start = center - range;
@@ -83,19 +82,19 @@ package com.gamecook.frogue.maps
                 var paddingRight:int = range - split;
                 var mapCenter:int = Math.floor(length * .5);
 
-                if(center < mapCenter)
+                if (center < mapCenter)
                 {
                     var leftOutOfBounds:int = center - paddingLeft;
-                    if(leftOutOfBounds < 0)
+                    if (leftOutOfBounds < 0)
                     {
                         paddingRight -= leftOutOfBounds;
                         paddingLeft += leftOutOfBounds;
                     }
                 }
-                else if(center > mapCenter)
+                else if (center > mapCenter)
                 {
-                    var rightOutOfBounds:int = (length-1) - (center + paddingRight);
-                    if(rightOutOfBounds < 0)
+                    var rightOutOfBounds:int = (length - 1) - (center + paddingRight);
+                    if (rightOutOfBounds < 0)
                     {
                         paddingRight += rightOutOfBounds;
                         paddingLeft -= rightOutOfBounds;
@@ -106,7 +105,7 @@ package com.gamecook.frogue.maps
             }
 
             // Just in case, make sure set is always in range
-            if(obj.start < 0)
+            if (obj.start < 0)
             {
                 // If start is less then 0, shift selection back into range.
                 obj.start = 0;
@@ -114,7 +113,7 @@ package com.gamecook.frogue.maps
             }
 
             // Make sure selection is never larger then the length.
-            if(obj.end > length)
+            if (obj.end > length)
                 obj.end = length;
 
             return obj;
@@ -128,12 +127,12 @@ package com.gamecook.frogue.maps
          * @param end
          * @return
          */
-        protected function getTilesInRow(i : int, start : Number, end : Number) : Array
+        protected function getTilesInRow(i:int, start:Number, end:Number):Array
         {
 
-            var row : Array = map.getTiles()[i] as Array;
+            var row:Array = map.getTiles()[i] as Array;
 
-            var tiles : Array = row.slice(start, end+1);
+            var tiles:Array = row.slice(start, end + 1);
 
             return tiles;
         }
@@ -171,19 +170,19 @@ package com.gamecook.frogue.maps
             return centerPoint;
         }
 
-        public function toString() : String
-		{
-			var stringMap : String = "";
-			var total : int = getTiles.length;
-			var i : int;
+        public function toString():String
+        {
+            var stringMap:String = "";
+            var total:int = getTiles.length;
+            var i:int;
 
-			// Render Map
-			for (i = 0;i < total;i ++)
-			{
-				stringMap = stringMap + (getTiles[i] as Array).join() + "\n";
-			}
+            // Render Map
+            for (i = 0; i < total; i ++)
+            {
+                stringMap = stringMap + (getTiles[i] as Array).join() + "\n";
+            }
 
-			return stringMap;
-		}
+            return stringMap;
+        }
     }
 }

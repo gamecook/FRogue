@@ -7,7 +7,6 @@
  */
 package com.gamecook.frogue.helpers
 {
-    import com.gamecook.frogue.io.IControl;
     import com.gamecook.frogue.maps.IMap;
 
     import flash.geom.Point;
@@ -17,10 +16,10 @@ package com.gamecook.frogue.helpers
         private var _playerPosition:Point;
         private var oldTileValue:String;
         private var map:IMap;
-        public static const UP:Point = new Point(0,-1);
-        public static const DOWN:Point = new Point(0,1);
-        public static const RIGHT:Point = new Point(1,0);
-        public static const LEFT:Point = new Point(-1,0);
+        public static const UP:Point = new Point(0, -1);
+        public static const DOWN:Point = new Point(0, 1);
+        public static const RIGHT:Point = new Point(1, 0);
+        public static const LEFT:Point = new Point(-1, 0);
 
         public function MovementHelper(map:IMap)
         {
@@ -42,10 +41,10 @@ package com.gamecook.frogue.helpers
             tmpPosition.x += x;
             tmpPosition.y += y;
 
-            if(tmpPosition.x < 0 || tmpPosition.x+1 > map.width)
+            if (tmpPosition.x < 0 || tmpPosition.x + 1 > map.width)
                 return null;
 
-            if(tmpPosition.y < 0 || tmpPosition.y+1 > map.height)
+            if (tmpPosition.y < 0 || tmpPosition.y + 1 > map.height)
                 return null;
 
             return tmpPosition;

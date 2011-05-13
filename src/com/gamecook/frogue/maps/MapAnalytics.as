@@ -5,11 +5,12 @@
  * Time: 11:52 AM
  * To change this template use File | Settings | File Templates.
  */
-package com.gamecook.frogue.maps {
-
+package com.gamecook.frogue.maps
+{
     import flash.geom.Point;
 
-    public class MapAnalytics {
+    public class MapAnalytics
+    {
 
         private var map:IMap;
         private var tileTotals:Array = [];
@@ -35,13 +36,13 @@ package com.gamecook.frogue.maps {
             var tile:String;
             var results:Array = [];
 
-            for(row = 0; row < totalRows; row++)
+            for (row = 0; row < totalRows; row++)
             {
-                for(column=0; column < totalColumns; column++)
+                for (column = 0; column < totalColumns; column++)
                 {
                     tile = tiles[row][column];
 
-                    if(analyzeTiles != null)
+                    if (analyzeTiles != null)
                         onTileCallback(results, tile, row, column, matchType);
 
                 }
@@ -53,7 +54,7 @@ package com.gamecook.frogue.maps {
         private function indexTile(results:Array, tile:String, row:int, column:int, type:String = null):void
         {
 
-            if(!results[tile])
+            if (!results[tile])
             {
                 results[tile] = 0;
             }
@@ -63,7 +64,7 @@ package com.gamecook.frogue.maps {
 
         public function getTotal(forceUpdate:Boolean, ...tileTypes):int
         {
-            if(forceUpdate)
+            if (forceUpdate)
                 update();
 
             var i:int;
@@ -71,10 +72,10 @@ package com.gamecook.frogue.maps {
             var counter:int = 0;
             var tileType:String;
 
-            for (i =0; i < total; i++)
+            for (i = 0; i < total; i++)
             {
                 tileType = tileTypes[i];
-                if(tileTotals[tileType])
+                if (tileTotals[tileType])
                     counter += tileTotals[tileType];
             }
 
@@ -94,16 +95,16 @@ package com.gamecook.frogue.maps {
             var tileTypeTotal:int = tileTypes.length;
             var currentTileType:String;
 
-            for(row = 0; row < totalRows; row++)
+            for (row = 0; row < totalRows; row++)
             {
-                for(column=0; column < totalColumns; column++)
+                for (column = 0; column < totalColumns; column++)
                 {
                     tile = tiles[row][column];
 
                     for (i = 0; i < tileTypeTotal; i++)
                     {
                         currentTileType = tileTypes[i];
-                        if(tile == currentTileType)
+                        if (tile == currentTileType)
                         {
                             points.push(new Point(column, row));
                         }

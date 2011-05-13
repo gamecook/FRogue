@@ -26,10 +26,10 @@ package com.gamecook.frogue.renderer
 
         override protected function renderTile(j:int, i:int, currentTile:String, tileID:int):void
         {
-            if(currentTile == "@")
-                trace("Player Tile",j,"x",i);
+            if (currentTile == "@")
+                trace("Player Tile", j, "x", i);
             var bitmapData:BitmapData = tileBitmap(currentTile);
-            var tileRect:Rectangle = new Rectangle(0,0, bitmapData.width, bitmapData.height);
+            var tileRect:Rectangle = new Rectangle(0, 0, bitmapData.width, bitmapData.height);
             var point:Point = new Point(j * tileRect.width, i * tileRect.height);
 
             target.copyPixels(bitmapData, tileRect, point);
@@ -38,7 +38,7 @@ package com.gamecook.frogue.renderer
 
         override protected function clearMap():void
         {
-            target.fillRect(new Rectangle(0,0,target.width, target.height),0);
+            target.fillRect(new Rectangle(0, 0, target.width, target.height), 0);
         }
 
         protected function tileBitmap(value:String):BitmapData

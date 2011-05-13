@@ -8,7 +8,6 @@
 package com.gamecook.frogue.io
 {
     import flash.display.DisplayObject;
-    import flash.display.Stage;
     import flash.events.IEventDispatcher;
     import flash.events.KeyboardEvent;
     import flash.ui.Keyboard;
@@ -24,9 +23,9 @@ package com.gamecook.frogue.io
 
         public function registerEvent():void
         {
-            if(target is IEventDispatcher && target is DisplayObject)
+            if (target is IEventDispatcher && target is DisplayObject)
             {
-                if(DisplayObject(target).hasOwnProperty("stage"))
+                if (DisplayObject(target).hasOwnProperty("stage"))
                 {
                     var dispatcher:IEventDispatcher = target["stage"] as IEventDispatcher;
 
@@ -37,20 +36,20 @@ package com.gamecook.frogue.io
 
         private function onKeyDown(event:KeyboardEvent):void
         {
-            switch(event.keyCode)
+            switch (event.keyCode)
             {
                 case Keyboard.UP:
                     up();
-                break;
+                    break;
                 case Keyboard.RIGHT:
                     right();
-                break;
+                    break;
                 case Keyboard.DOWN:
                     down();
-                break;
+                    break;
                 case Keyboard.LEFT:
                     left();
-                break;
+                    break;
             }
         }
 

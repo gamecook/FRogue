@@ -17,6 +17,7 @@ package com.gamecook.frogue.sprites
         protected var spriteRectangles:Array = [];
         public var spriteNames:Array = [];
         public var spriteCache:Array = [];
+
         /**
          * <p>Sheet constructor.</p>
          *
@@ -75,7 +76,7 @@ package com.gamecook.frogue.sprites
 
             var id:String = names.join(",");
 
-            if(!spriteCache[id])
+            if (!spriteCache[id])
             {
 
                 var width:int;
@@ -93,9 +94,9 @@ package com.gamecook.frogue.sprites
                 var i:int;
                 var total:int = names.length;
 
-                for(i = 0; i < total; i++)
+                for (i = 0; i < total; i++)
                 {
-                    if(!spriteCache[names[i]])
+                    if (!spriteCache[names[i]])
                     {
 
                         rect = spriteRectangles[names[i]];
@@ -141,7 +142,7 @@ package com.gamecook.frogue.sprites
 
         public function getSpriteFromCache(value:String):BitmapData
         {
-             return spriteCache[value].clone();
+            return spriteCache[value].clone();
         }
 
         public function cacheSprite(id:String, bmd:BitmapData):void

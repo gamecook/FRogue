@@ -10,6 +10,7 @@ package com.gamecook.frogue.maps
     public interface ISelectTiles
     {
         function getTileID(column:int, row:int):int
+
         function getTiles():Array
 
     }

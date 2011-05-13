@@ -7,8 +7,6 @@
  */
 package com.gamecook.frogue.renderer
 {
-    import com.gamecook.frogue.maps.IMap;
-    import com.gamecook.frogue.maps.IMapSelection;
     import com.gamecook.frogue.maps.ISelectTiles;
 
     public class AbstractMapRenderer
@@ -29,9 +27,9 @@ package com.gamecook.frogue.renderer
 
             clearMap();
 
-            for(row = 0; row < total; row++)
+            for (row = 0; row < total; row++)
             {
-                for(column = 0; column < rowWidth; column ++)
+                for (column = 0; column < rowWidth; column ++)
                 {
                     currentTile = tiles[row][column];
                     renderTile(column, row, currentTile, selection.getTileID(column, row));
@@ -53,7 +51,7 @@ package com.gamecook.frogue.renderer
 
         public function renderPlayer(j:int, i:int, tileType:String):void
         {
-            renderTile(j,i, tileType, 0);
+            renderTile(j, i, tileType, 0);
         }
     }
 }
