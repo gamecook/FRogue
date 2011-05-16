@@ -9,7 +9,6 @@ package com.gamecook.frogue.factories
     import com.gamecook.frogue.equipment.IEquipable;
     import com.gamecook.frogue.sprites.SpriteSheet;
     import com.gamecook.frogue.tiles.TileTypes;
-    import com.jessefreeman.factivity.managers.SingletonManager;
 
     public class EquipmentFactory
     {
@@ -17,11 +16,17 @@ package com.gamecook.frogue.factories
         include "suffixes.as"
         include "types.as"
 
-        private var modifyMap:Array = []
+        private var modifyMap:Array = [];
         //private var materials:Array = [WOOD, STEEL, BRONZE, GOLD, DIMOND];
         private var materialColors:Array = [];
         private var baseColor:uint = 0xffa6a6a6;
-        private var spriteSheet:SpriteSheet = SingletonManager.getClassReference(SpriteSheet);
+        private var spriteSheet:SpriteSheet;
+
+
+        public function EquipmentFactory(spriteSheet:SpriteSheet)
+        {
+            this.spriteSheet = spriteSheet;
+        }
 
         public function createEquipment(level:uint, equipmentType:int):IEquipable
         {

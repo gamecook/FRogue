@@ -7,8 +7,9 @@
  */
 package com.gamecook.frogue.tiles
 {
-    import com.jessefreeman.factivity.serialize.ISerializeToObject;
-    import com.jessefreeman.factivity.utils.ClassUtil;
+    import flash.utils.getQualifiedClassName;
+
+    import serialize.ISerializeToObject;
 
     public class BaseTile implements ITile, ISerializeToObject
     {
@@ -19,7 +20,7 @@ package com.gamecook.frogue.tiles
 
         public function BaseTile()
         {
-            className = ClassUtil.className(this);
+            className = getQualifiedClassName(this).split("::")[1];
         }
 
         public function getName():String

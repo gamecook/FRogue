@@ -20,6 +20,8 @@ package com.gamecook.frogue.tiles
         private var visibility:int = 3;
 
         public var onUsePotion:Function;
+        private var characterClass:String = "none";
+        private var level:int = 0;
 
         public function PlayerTile()
         {
@@ -97,6 +99,9 @@ package com.gamecook.frogue.tiles
             if (obj.hasOwnProperty("visibility"))
                 visibility = obj.visibility;
 
+            if (obj.hasOwnProperty("characterClass"))
+                characterClass = obj.characterClass;
+
         }
 
         public function addPotion(value:int):void
@@ -168,6 +173,15 @@ package com.gamecook.frogue.tiles
             }
         }
 
+        public function getClass():String
+        {
+            return characterClass;
+        }
+
+        public function getLevel():int
+        {
+            return level;
+        }
     }
 
 }

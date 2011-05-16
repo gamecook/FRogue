@@ -8,8 +8,9 @@
 package com.gamecook.frogue.managers
 {
     import com.gamecook.frogue.factories.ITileFactory;
-    import com.jessefreeman.factivity.serialize.ISerializeToObject;
     import com.gamecook.frogue.tiles.BaseTile;
+
+    import serialize.ISerializeToObject;
 
     public class TileInstanceManager implements ISerializeToObject
     {

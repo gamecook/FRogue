@@ -7,7 +7,7 @@
  */
 package com.gamecook.frogue.equipment
 {
-    import com.jessefreeman.factivity.serialize.ISerializeToObject;
+    import serialize.ISerializeToObject;
 
     public interface IEquipable extends ISerializeToObject
     {

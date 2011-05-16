@@ -23,43 +23,16 @@
 /**
  * Created by IntelliJ IDEA.
  * User: Jesse Freeman
- * Date: 3/3/11
- * Time: 10:57 PM
+ * Date: 3/8/11
+ * Time: 8:18 AM
  * To change this template use File | Settings | File Templates.
  */
-package com.gamecook.frogue.templates
+package serialize
 {
-    public class TemplateCollection implements ITemplateCollection
+    public interface ISerializeToObject
     {
-        private var templates:Array = [];
-        private var templateNames:Array = [];
+        function parseObject(value:Object):void;
 
-        public function TemplateCollection()
-        {
-        }
-
-        public function getTemplate(id:String):ITemplate
-        {
-            return templates[id];
-        }
-
-        public function getRandomTemplate():ITemplate
-        {
-            //TODO need to look into why this would return a null template
-            var id:String = templateNames[Math.floor((Math.random() * templateNames.length))];
-
-            return templates[id];
-        }
-
-        public function addTemplate(id:String, template:ITemplate, weight:int = 1):void
-        {
-            templates[id] = template;
-
-            while (weight > 0)
-            {
-                templateNames.push(id);
-                weight --;
-            }
-        }
+        function toObject():Object;
     }
 }
