@@ -401,12 +401,12 @@ package com.gamecook.frogue.tiles
 
         public function setShoeSlot(value:IEquipable):void
         {
-            equipmentSlots[SlotsEnum.SHOES] = value;
+            equipmentSlots[SlotsEnum.BOOTS] = value;
         }
 
         public function getShoeSlot():IEquipable
         {
-            return equipmentSlots[SlotsEnum.SHOES];
+            return equipmentSlots[SlotsEnum.BOOTS];
         }
 
         public function modifyAttack(value:int):void

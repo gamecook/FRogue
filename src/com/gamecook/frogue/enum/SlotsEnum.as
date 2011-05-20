@@ -13,7 +13,7 @@ package com.gamecook.frogue.enum
         public static const SHIELD:int = 1;
         public static const ARMOR:int = 2;
         public static const HELMET:int = 3;
-        public static const SHOES:int = 4;
+        public static const BOOTS:int = 4;
 
     }
 }
