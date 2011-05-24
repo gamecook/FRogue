@@ -12,26 +12,30 @@ package com.gamecook.frogue.factories
 
     public class EquipmentFactory
     {
-        include "prefixes.as"
-        include "suffixes.as"
-        include "types.as"
+
 
         private var modifyMap:Array = [];
         //private var materials:Array = [WOOD, STEEL, BRONZE, GOLD, DIMOND];
         private var materialColors:Array = [];
         private var baseColor:uint = 0xffa6a6a6;
         private var spriteSheet:SpriteSheet;
+        private var prefixes:Array;
+        private var suffixes:Array;
+        private var types:Array;
 
 
-        public function EquipmentFactory(spriteSheet:SpriteSheet)
+        public function EquipmentFactory(spriteSheet:SpriteSheet, types:Array, prefixes:Array = null, suffixes:Array = null,  materials:Array =null)
         {
             this.spriteSheet = spriteSheet;
+            this.prefixes = prefixes;
+            this.types = types;
+            this.suffixes = suffixes;
         }
 
         public function createEquipment(level:uint, equipmentType:int):IEquipable
         {
             //TODO: figure out how level matches length of arrays
-            level = Math.min(level, includedPrefixes.length - 1);
+            //level = Math.min(level, prefixes.length - 1);
             level = int(Math.random() * level);
 
             //TODO: match character level range to weapon range
@@ -76,8 +80,11 @@ package com.gamecook.frogue.factories
 
         private function createPrefix(level:uint):String
         {
-            var random:int = int(Math.random() * includedPrefixes[level].length);
-            var prefix:String = includedPrefixes[level][random];
+            // Handle no prefixes
+            if(!prefixes) return "";
+
+            var random:int = int(Math.random() * prefixes[level].length);
+            var prefix:String = prefixes[level][random];
 
             return prefix;
         }
@@ -90,8 +97,11 @@ package com.gamecook.frogue.factories
 
         private function createSuffix(level:uint):String
         {
-            var random:int = int(Math.random() * includedSuffixes[level].length);
-            var suffix:String = includedSuffixes[level][random];
+            // Handle no prefixes
+            if(!suffixes) return "";
+
+            var random:int = int(Math.random() * suffixes[level].length);
+            var suffix:String = suffixes[level][random];
             return suffix;
         }
     }
