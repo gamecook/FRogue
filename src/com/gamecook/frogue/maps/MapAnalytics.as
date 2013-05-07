@@ -42,7 +42,7 @@ package com.gamecook.frogue.maps
                 {
                     tile = tiles[row][column];
 
-                    if (analyzeTiles != null)
+                    if (onTileCallback != null)
                         onTileCallback(results, tile, row, column, matchType);
 
                 }
